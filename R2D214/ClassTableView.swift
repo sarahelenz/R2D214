@@ -22,7 +22,9 @@ class FirstViewController: UIViewController, UITableViewDataSource {
        }
        
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-           <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
+        cell.textLabel?.text = ""
+        return cell
        }
 }
 
