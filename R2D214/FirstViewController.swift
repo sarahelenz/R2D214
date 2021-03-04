@@ -10,6 +10,8 @@ import UIKit
 
 class FirstViewController: UIViewController, UITableViewDataSource {
    
+    @IBOutlet weak var tableView1: UITableView!
+    @IBOutlet weak var cell1: UITableViewCell!
     
 
     override func viewDidLoad() {
@@ -27,4 +29,3 @@ class FirstViewController: UIViewController, UITableViewDataSource {
         return cell
        }
 }
-

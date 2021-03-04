@@ -57,6 +57,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="p25-Bs-bCv"/>
+                    <connections>
+                        <outlet property="cell1" destination="8R8-go-Fkz" id="c2Q-e0-eqk"/>
+                        <outlet property="tableView1" destination="xgK-t0-nCn" id="6Q6-S6-1zi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
