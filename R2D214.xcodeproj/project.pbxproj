@@ -10,8 +10,8 @@
 		2333F32325EEE2E1003FF03B /* messageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2333F32225EEE2E1003FF03B /* messageVC.swift */; };
 		31114C5325E8496C005375BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31114C5225E8496C005375BA /* AppDelegate.swift */; };
 		31114C5525E8496C005375BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31114C5425E8496C005375BA /* SceneDelegate.swift */; };
-		31114C5725E8496C005375BA /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31114C5625E8496C005375BA /* FirstViewController.swift */; };
-		31114C5925E8496C005375BA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31114C5825E8496C005375BA /* SecondViewController.swift */; };
+		31114C5725E8496C005375BA /* ClassTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31114C5625E8496C005375BA /* ClassTableView.swift */; };
+		31114C5925E8496C005375BA /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31114C5825E8496C005375BA /* Inbox.swift */; };
 		31114C5C25E8496C005375BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31114C5A25E8496C005375BA /* Main.storyboard */; };
 		31114C5F25E8496C005375BA /* R2D214.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31114C5D25E8496C005375BA /* R2D214.xcdatamodeld */; };
 		31114C6125E8496E005375BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31114C6025E8496E005375BA /* Assets.xcassets */; };
@@ -23,8 +23,8 @@
 		31114C4F25E8496C005375BA /* R2D214.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = R2D214.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31114C5225E8496C005375BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31114C5425E8496C005375BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		31114C5625E8496C005375BA /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		31114C5825E8496C005375BA /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		31114C5625E8496C005375BA /* ClassTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableView.swift; sourceTree = "<group>"; };
+		31114C5825E8496C005375BA /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		31114C5B25E8496C005375BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		31114C5E25E8496C005375BA /* R2D214.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = R2D214.xcdatamodel; sourceTree = "<group>"; };
 		31114C6025E8496E005375BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,8 +64,8 @@
 			children = (
 				31114C5225E8496C005375BA /* AppDelegate.swift */,
 				31114C5425E8496C005375BA /* SceneDelegate.swift */,
-				31114C5625E8496C005375BA /* FirstViewController.swift */,
-				31114C5825E8496C005375BA /* SecondViewController.swift */,
+				31114C5625E8496C005375BA /* ClassTableView.swift */,
+				31114C5825E8496C005375BA /* Inbox.swift */,
 				31114C5A25E8496C005375BA /* Main.storyboard */,
 				2333F32225EEE2E1003FF03B /* messageVC.swift */,
 				31114C6025E8496E005375BA /* Assets.xcassets */,
@@ -147,8 +147,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31114C5925E8496C005375BA /* SecondViewController.swift in Sources */,
-				31114C5725E8496C005375BA /* FirstViewController.swift in Sources */,
+				31114C5925E8496C005375BA /* Inbox.swift in Sources */,
+				31114C5725E8496C005375BA /* ClassTableView.swift in Sources */,
 				2333F32325EEE2E1003FF03B /* messageVC.swift in Sources */,
 				31114C5325E8496C005375BA /* AppDelegate.swift in Sources */,
 				31114C5525E8496C005375BA /* SceneDelegate.swift in Sources */,
