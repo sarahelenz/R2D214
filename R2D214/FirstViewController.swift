@@ -10,9 +10,7 @@ import UIKit
 
 class FirstViewController: UIViewController, UITableViewDataSource {
    
-    @IBOutlet weak var tableView1: UITableView!
-    @IBOutlet weak var cell1: UITableViewCell!
-    
+    @IBOutlet weak var tableView1: UITableView!    
 
     override func viewDidLoad() {
         super.viewDidLoad()
