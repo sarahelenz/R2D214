@@ -33,5 +33,5 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     }
     @IBAction func sendAct(_ sender: Any) {
         sendEmail()//needs testing once emails added from firebase
-    }    
+    }
 }
