@@ -84,11 +84,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="sendAct:" destination="4ti-Jt-UeP" eventType="touchUpInside" id="kc8-1o-iTN"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XrY-7c-Rfs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="field" destination="a6H-zH-Jq4" id="NxJ-su-uBR"/>
+                        <outlet property="sendButtnon" destination="Hkm-7z-tTQ" id="vab-SI-j36"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ee-I0-Hoi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
