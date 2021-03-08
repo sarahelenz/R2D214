@@ -17,10 +17,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
             self.navigationController?.pushViewController(messageVCC, animated: true)
+            
         }
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
             return
@@ -38,9 +38,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         let referance = Database.database().reference().child("IDNumber")
         //  print(referance)
-        referance.observeSingleEvent(of: .value) { (snapshot) in
+        let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
+        reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
+        reference.observeSingleEvent(of: .value) { (snapshot) in
             //     print (snapshot)
             for data in snapshot.children.allObjects as! [DataSnapshot] {
+                
             
                 let IDNumber = data.key
                 
@@ -66,5 +69,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         present(messageAlert, animated: true, completion: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nvc = segue.destination as! ArrayOf
+        
     }
 }
