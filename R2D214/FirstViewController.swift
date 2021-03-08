@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
@@ -24,7 +25,22 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
     }
-    
+    public func getData()
+    {
+        arrayOf.name = []
+        arrayOf.location = []
+        arrayOf.students = []
+        arrayOf.URLString = []
+        //fire base code
+        let referance = Database.database().reference().child("Colleges")
+        //  print(referance)
+        referance.observeSingleEvent(of: .value) { (snapshot) in
+            //     print (snapshot)
+            for data in snapshot.children.allObjects as! [DataSnapshot] {
+            
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
