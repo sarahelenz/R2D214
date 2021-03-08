@@ -9,11 +9,11 @@
 import Foundation
 
 class ArrayOf {
-    let baracode: [Int] = []
-    let counselor: [String] = []
-    let Email: [String] = []
-    let firstName: [String] = []
-    let lastName : [String] = []
+    var IDNumber: [Int] = []
+    var counselor: [String] = []
+    var Email: [String] = []
+    var firstName: [String] = []
+    var lastName : [String] = []
     
     
 }
