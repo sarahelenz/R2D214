@@ -12,12 +12,13 @@ import Firebase
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     @IBOutlet weak var tableView1: UITableView!    
-    
+    var arrayOf = ArrayOf()
     override func viewDidLoad() {
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
             self.navigationController?.pushViewController(messageVCC, animated: true)
+            
         }
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
             return
@@ -27,10 +28,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     public func getData()
     {
-        arrayOf.name = []
-        arrayOf.location = []
-        arrayOf.students = []
-        arrayOf.URLString = []
+        arrayOf.firstName = []
+        arrayOf.lastName = []
+        arrayOf.baracode = []
+        arrayOf.Email = []
+        arrayOf.counselor = []
+        
         //fire base code
         let referance = Database.database().reference().child("Colleges")
         //  print(referance)
@@ -52,5 +55,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         present(messageAlert, animated: true, completion: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nvc = segue.destination as! ArrayOf
+        
     }
 }
