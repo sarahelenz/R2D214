@@ -35,8 +35,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         arrayOf.counselor = []
         
         //fire base code
-        let referance = Database.database().reference().child("Colleges")
+        let referance = Database.database().reference()
         //  print(referance)
+        referance.child("r2d214-a33ff-default-rtdb")
         referance.observeSingleEvent(of: .value) { (snapshot) in
             //     print (snapshot)
             for data in snapshot.children.allObjects as! [DataSnapshot] {
