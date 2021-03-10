@@ -10,9 +10,11 @@ import UIKit
 import Firebase
 
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    let arrayOf = ArrayOf()
+    
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     @IBOutlet weak var tableView1: UITableView!    
-    var arrayOf = ArrayOf()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
@@ -28,15 +30,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     public func getData()
     {
+        arrayOf.IDNumber = []
+        arrayOf.counselor = []
+        arrayOf.Email = []
         arrayOf.firstName = []
         arrayOf.lastName = []
-        arrayOf.baracode = []
-        arrayOf.Email = []
-        arrayOf.counselor = []
         
-        //fire base code
-        let reference = Database.database().reference()
-        //  print(referance)
+        let referance = Database.database().arrayOf.sutdents
+         referance.observeSingleEvent(of: .value) { (snapshot) in
         let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
         reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
         reference.observeSingleEvent(of: .value) { (snapshot) in
@@ -44,16 +45,27 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             for data in snapshot.children.allObjects as! [DataSnapshot] {
                 
             
+                let IDNumber = data.key
+                
+            let dictionary = data.value as! NSDictionary
+            let CounselorDictionary = dictionary["counselor"] as! String
+            let EmailDictionary = dictionary["E-mail"] as! String
+            let firstNameDictionary = dictionary["First Name"] as! String
+            let lastNameDictionary = dictionary["Last Name"] as! String
+
             }
+            self.tableView1.reloadData()
         }
     }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return arrayOf.IDNumber.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        cell.textLabel?.text = ""
+        cell.textLabel?.text = "\(arrayOf.firstName[indexPath.row])"
+        cell.detailTextLabel?.text = "\(arrayOf.lastName[indexPath.row])"
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
