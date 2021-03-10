@@ -13,7 +13,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     let arrayOf = ArrayOf()
     
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
-    @IBOutlet weak var tableView1: UITableView!    
+    @IBOutlet weak var tableView1: UITableView!
+    var tableViewCount = [1,2,3,4,5]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +37,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         arrayOf.firstName = []
         arrayOf.lastName = []
         
-        let referance = Database.database().arrayOf.sutdents
-         referance.observeSingleEvent(of: .value) { (snapshot) in
+        let reference = Database.database().reference()
+         reference.observeSingleEvent(of: .value) { (snapshot) in
         let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
         reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
         reference.observeSingleEvent(of: .value) { (snapshot) in
@@ -59,13 +60,13 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOf.IDNumber.count
+        return tableViewCount.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        cell.textLabel?.text = "\(arrayOf.firstName[indexPath.row])"
-        cell.detailTextLabel?.text = "\(arrayOf.lastName[indexPath.row])"
+        cell.textLabel?.text = "Class of 20\(arrayOf.IDNumber[2...3][indexPath.row])"
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
