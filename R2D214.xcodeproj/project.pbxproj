@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		31114C5F25E8496C005375BA /* R2D214.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31114C5D25E8496C005375BA /* R2D214.xcdatamodeld */; };
 		31114C6125E8496E005375BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31114C6025E8496E005375BA /* Assets.xcassets */; };
 		31114C6425E8496E005375BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31114C6225E8496E005375BA /* LaunchScreen.storyboard */; };
+		600B9B9525F6C10600DEAE50 /* ArrayOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600B9B9425F6C10600DEAE50 /* ArrayOf.swift */; };
 		601A747425F181EE00F026D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 601A747325F181EE00F026D9 /* GoogleService-Info.plist */; };
 		BA2B8806CB7B2099BF013AFA /* Pods_R2D214.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5347AA9D82A08D51DADAD98 /* Pods_R2D214.framework */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		31114C6325E8496E005375BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31114C6525E8496E005375BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4601817B1F0786FD171EE27A /* Pods-R2D214.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R2D214.release.xcconfig"; path = "Target Support Files/Pods-R2D214/Pods-R2D214.release.xcconfig"; sourceTree = "<group>"; };
+		600B9B9425F6C10600DEAE50 /* ArrayOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOf.swift; sourceTree = "<group>"; };
 		601A747325F181EE00F026D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5347AA9D82A08D51DADAD98 /* Pods_R2D214.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_R2D214.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -56,7 +58,6 @@
 				17A4F1340334FB108FE07B20 /* Pods-R2D214.debug.xcconfig */,
 				4601817B1F0786FD171EE27A /* Pods-R2D214.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -85,6 +86,7 @@
 				31114C5425E8496C005375BA /* SceneDelegate.swift */,
 				31114C5625E8496C005375BA /* FirstViewController.swift */,
 				31114C5825E8496C005375BA /* SecondViewController.swift */,
+				600B9B9425F6C10600DEAE50 /* ArrayOf.swift */,
 				31114C5A25E8496C005375BA /* Main.storyboard */,
 				2333F32225EEE2E1003FF03B /* messageVC.swift */,
 				31114C6025E8496E005375BA /* Assets.xcassets */,
@@ -220,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				600B9B9525F6C10600DEAE50 /* ArrayOf.swift in Sources */,
 				31114C5925E8496C005375BA /* SecondViewController.swift in Sources */,
 				31114C5725E8496C005375BA /* FirstViewController.swift in Sources */,
 				2333F32325EEE2E1003FF03B /* messageVC.swift in Sources */,

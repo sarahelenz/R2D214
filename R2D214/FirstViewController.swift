@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import Firebase
 
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     @IBOutlet weak var tableView1: UITableView!    
-    
+    var arrayOf = ArrayOf()
     override func viewDidLoad() {
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
             self.navigationController?.pushViewController(messageVCC, animated: true)
+            
         }
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
             return
@@ -24,7 +26,27 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
     }
-    
+    public func getData()
+    {
+        arrayOf.firstName = []
+        arrayOf.lastName = []
+        arrayOf.baracode = []
+        arrayOf.Email = []
+        arrayOf.counselor = []
+        
+        //fire base code
+        let reference = Database.database().reference()
+        //  print(referance)
+        let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
+        reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
+        reference.observeSingleEvent(of: .value) { (snapshot) in
+            //     print (snapshot)
+            for data in snapshot.children.allObjects as! [DataSnapshot] {
+                
+            
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -36,5 +58,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         present(messageAlert, animated: true, completion: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nvc = segue.destination as! ArrayOf
+        
     }
 }
