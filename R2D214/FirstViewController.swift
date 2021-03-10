@@ -17,6 +17,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var tableViewCount = [1,2,3,4,5]
     
     override func viewDidLoad() {
+        tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
@@ -64,8 +65,15 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var yearNumbers: [Int] = []
+        for years in arrayOf.IDNumber[2...3]{
+            yearNumbers.append(years)
+            if years == yearNumbers[0], years == yearNumbers[1], years == yearNumbers[2], years == yearNumbers[3]{
+                break
+            }
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        cell.textLabel?.text = "Class of 20\(arrayOf.IDNumber[2...3][indexPath.row])"
+        cell.textLabel?.text = "Class of 20\(arrayOf.IDNumber[indexPath.row])"
         
         return cell
     }
@@ -73,7 +81,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let nvc = segue.destination as! ArrayOf
+       let nvc = segue.destination as! ArrayOf
         
     }
 }
