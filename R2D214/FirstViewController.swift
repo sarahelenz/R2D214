@@ -35,9 +35,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         arrayOf.Email = []
         arrayOf.firstName = []
         arrayOf.lastName = []
-
-        let referance = Database.database().reference().child("IDNumber")
-        //  print(referance)
+        
+        let referance = Database.database().arrayOf.sutdents
+         referance.observeSingleEvent(of: .value) { (snapshot) in
         let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
         reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
         reference.observeSingleEvent(of: .value) { (snapshot) in
@@ -56,6 +56,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             self.tableView1.reloadData()
         }
+    }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayOf.IDNumber.count
