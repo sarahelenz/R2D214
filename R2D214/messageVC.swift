@@ -24,7 +24,7 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     func loadDatabase() {
         emails = []
         for i in idnum {
-            let reference = Database.database().reference().child(String(i)).child("E-Mail")
+            let reference = Database.database().reference().child(String(i)).child("E-mail")
             reference.observeSingleEvent(of: .value) { (snapshot) in
                 for dataa in snapshot.children.allObjects as! [DataSnapshot] {
                     let email = dataa.value
