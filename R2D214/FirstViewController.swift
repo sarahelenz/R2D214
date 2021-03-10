@@ -73,7 +73,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nvc = segue.destination as! ArrayOf
+//        let nvc = segue.destination as! ArrayOf
         
     }
 }
