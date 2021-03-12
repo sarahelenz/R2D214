@@ -65,14 +65,15 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        var yearNumbers: [Int] = []
-//        for years in arrayOf.IDNumber[1...2]{
-//            yearNumbers.append(years)
-//            if years == yearNumbers[0], years == yearNumbers[1], years == yearNumbers[2], years == yearNumbers[3]{
-//                break
-//            }
-//        }
-        let classTitles = ["Class of", "Class of", "Class of", "Class of", "Entire School"]
+        let classYears = arrayOf.IDNumber[1...2]
+        var yearNumbers: [Int] = []
+        for year in classYears{
+            yearNumbers.append(year)
+            if classYears.contains(year){
+                break
+            }
+        }
+        let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
         cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
