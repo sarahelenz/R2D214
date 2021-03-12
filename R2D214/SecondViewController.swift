@@ -11,11 +11,12 @@ import Firebase
 
 class SecondViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+
     @IBOutlet weak var tableview:UITableView!
     let counselorArr = ["Bialeschki","Bowen","Deppen","Galarza","Mo","Muck","Waller"]
     override func viewDidLoad() {
         super.viewDidLoad()
-        let studentArr = [621006] //will have to replace with all students in a grade
+        let studentArr = [["IDNumber":621006,"Counselor":"Deppen"]] //data segued from Sarah's code, will need to be all students in a grade
         // Do any additional setup after loading the view.
         let reference = Database.database().reference()
         
