@@ -13,9 +13,11 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     let arrayOf = ArrayOf()
     
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
-    @IBOutlet weak var tableView1: UITableView!    
+    @IBOutlet weak var tableView1: UITableView!
+    var tableViewCount = [1,2,3,4,5]
     
     override func viewDidLoad() {
+        tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
@@ -35,9 +37,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         arrayOf.Email = []
         arrayOf.firstName = []
         arrayOf.lastName = []
-
-        let referance = Database.database().arrayOf.sutdents
-         referance.observeSingleEvent(of: .value) { (snapshot) in
+        
+        let reference = Database.database().reference()
+         reference.observeSingleEvent(of: .value) { (snapshot) in
         let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
         reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
         reference.observeSingleEvent(of: .value) { (snapshot) in
@@ -59,20 +61,27 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOf.IDNumber.count
+        return tableViewCount.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var yearNumbers: [Int] = []
+        for years in arrayOf.IDNumber[2...3]{
+            yearNumbers.append(years)
+            if years == yearNumbers[0], years == yearNumbers[1], years == yearNumbers[2], years == yearNumbers[3]{
+                break
+            }
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        cell.textLabel?.text = "\(arrayOf.firstName[indexPath.row])"
-        cell.detailTextLabel?.text = "\(arrayOf.lastName[indexPath.row])"
+        cell.textLabel?.text = "Class of 20\(arrayOf.IDNumber[indexPath.row])"
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let nvc = segue.destination as! ArrayOf
+       let nvc = segue.destination as! ArrayOf
         
     }
 }
