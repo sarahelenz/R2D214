@@ -23,7 +23,7 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         
         for student in studentArr{
             let stuCounselor = student["Counselor"]
-            for x in 0...7{
+            for x in 0...6{
                 if(counselorArr[x] == stuCounselor){
                     counselorStudents[x].append(student)
                     break
