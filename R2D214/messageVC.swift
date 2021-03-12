@@ -13,8 +13,7 @@ import Firebase
 import FirebaseDatabase
 class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     var emails:[String] = []
-    var ref = Database.database().reference()
-    var idnum:[Int] = [621006] //need to set equal to id numbers recieved from previous view controller
+    var idnum:[Int] = [621092] //need to set equal to id numbers recieved from previous view controller
     @IBOutlet weak var field: UITextField!
     @IBOutlet weak var sendButtnon: UIButton!
     override func viewDidLoad() {
@@ -24,12 +23,13 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     func loadDatabase() {
         emails = []
         for i in idnum {
-            let reference = Database.database().reference().child(String(i)).child("E-mail")
+            let reference = Database.database().reference().child(String(i))
             reference.observeSingleEvent(of: .value) { (snapshot) in
                 for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-                    let email = dataa.value
-                    print("printing",email as Any)
-                    self.emails.append(email as! String)
+                    let dict = dataa.value as! String
+                    if dict.contains("@") {
+                        print(dict)
+                    }
                 }
             }
         }
