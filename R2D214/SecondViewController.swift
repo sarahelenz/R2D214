@@ -7,14 +7,30 @@
 //
 
 import UIKit
+import Firebase
 
-class SecondViewController: UIViewController {
+class SecondViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    @IBOutlet weak var tableview:UITableView!
+    let counselorArr = ["Bialeschki","Bowen","Deppen","Galarza","Mo","Muck","Waller"]
     override func viewDidLoad() {
         super.viewDidLoad()
+        let studentArr = [621006] //will have to replace with all students in a grade
         // Do any additional setup after loading the view.
+        let reference = Database.database().reference()
+        
+        for id in studentArr{
+            
+        }
     }
 
-
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
+        cell.textLabel?.text = counselorArr[indexPath.row]
+        return cell
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 7
+    }
 }
 
