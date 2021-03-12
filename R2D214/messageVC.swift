@@ -13,7 +13,7 @@ import Firebase
 import FirebaseDatabase
 class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     var emails:[String] = []
-    var idnum:[Int] = [621092] //need to set equal to id numbers recieved from previous view controller
+    var idnum:[Int] = [621006,621092,623182] //need to set equal to id numbers recieved from previous view controller
     @IBOutlet weak var field: UITextField!
     @IBOutlet weak var sendButtnon: UIButton!
     override func viewDidLoad() {
@@ -26,20 +26,21 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
             let reference = Database.database().reference().child(String(i))
             reference.observeSingleEvent(of: .value) { (snapshot) in
                 for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-                    let dict = dataa.value as! String
-                    if dict.contains("@") {
-                        print(dict)
+                    let email = dataa.value as! String
+                    if email.contains("@") {
+                        self.emails.append(email)
                     }
                 }
             }
         }
+        print(emails)
     }
     func sendEmail() {
         loadDatabase()
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients(emails)//will need to complete line with email address from firebase once available
+            mail.setToRecipients(emails)
             mail.setMessageBody("<p>\(field.text!)</p>", isHTML: true)
             present(mail, animated: true)
         } else {
@@ -50,6 +51,6 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true)
     }
     @IBAction func sendAct(_ sender: Any) {
-        loadDatabase()
+        sendEmail()
     }
 }
