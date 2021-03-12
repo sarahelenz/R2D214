@@ -45,10 +45,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         reference.observeSingleEvent(of: .value) { (snapshot) in
             //     print (snapshot)
             for data in snapshot.children.allObjects as! [DataSnapshot] {
-                
-            
+
+
                 let IDNumber = data.key
-                
+
             let dictionary = data.value as! NSDictionary
             let CounselorDictionary = dictionary["counselor"] as! String
             let EmailDictionary = dictionary["E-mail"] as! String
