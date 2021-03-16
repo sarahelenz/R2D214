@@ -37,28 +37,23 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         arrayOf.Email = []
         arrayOf.firstName = []
         arrayOf.lastName = []
-        
         let reference = Database.database().reference()
-         reference.observeSingleEvent(of: .value) { (snapshot) in
-        let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
-        reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
         reference.observeSingleEvent(of: .value) { (snapshot) in
-            //     print (snapshot)
-            for data in snapshot.children.allObjects as! [DataSnapshot] {
-
-
-                let IDNumber = data.key
-
-            let dictionary = data.value as! NSDictionary
-            let CounselorDictionary = dictionary["counselor"] as! String
-            let EmailDictionary = dictionary["E-mail"] as! String
-            let firstNameDictionary = dictionary["First Name"] as! String
-            let lastNameDictionary = dictionary["Last Name"] as! String
-
+            let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
+            reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
+            reference.observeSingleEvent(of: .value) { (snapshot) in
+                //     print (snapshot)
+                for data in snapshot.children.allObjects as! [DataSnapshot] {
+                    let IDNumber = data.key
+                    let dictionary = data.value as! NSDictionary
+                    let CounselorDictionary = dictionary["counselor"] as! String
+                    let EmailDictionary = dictionary["E-mail"] as! String
+                    let firstNameDictionary = dictionary["First Name"] as! String
+                    let lastNameDictionary = dictionary["Last Name"] as! String
+                }
+                self.tableView1.reloadData()
             }
-            self.tableView1.reloadData()
         }
-    }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewCount.count
@@ -78,15 +73,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
-    
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       let nvc = segue.destination as! ArrayOf
+        let nvc = segue.destination as! ArrayOf
         
     }
 }
-
