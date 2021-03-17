@@ -12,7 +12,7 @@ import Firebase
 class SecondViewController:UIViewController {
     
     @IBOutlet weak var tableview: UITableView!
-    @IBOutlet weak var tableviewcell: UITableViewCell!
+   
     override func viewDidLoad(){
         super.viewDidLoad()
         

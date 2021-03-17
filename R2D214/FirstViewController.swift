@@ -20,7 +20,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
     var arrayCount = 0
-     var yearNumbers: [Int] = []
+     var yearNumbers: [String] = []
     
     override func viewDidLoad() {
         tableView1.dataSource = self
@@ -69,9 +69,11 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
       
         for ids in idnum{
             var id = idnum[arrayCount]
-            yearnumbers.append(id[1..<3])
+            yearNumbers.append(id[1..<3])
             arrayCount += 1
         }
+      let unique = Array(Set(yearNumbers))
+        print(yearNumbers)
   
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,9 +85,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         getYearNumbers()
        
         
-       let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
+   //  let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-       cell.textLabel?.text = "\(classTitles[indexPath.row])"
+    //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
