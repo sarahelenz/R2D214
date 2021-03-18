@@ -13,7 +13,7 @@ import Firebase
 import FirebaseDatabase
 class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     var emails:[String] = []
-    var idnum:[Int] = [621006,621092,623182] //need to set equal to id numbers recieved from previous view controller
+    var idnum:[Int] = [] //need to set equal to id numbers recieved from previous view controller
     @IBOutlet weak var field: UITextField!
     @IBOutlet weak var sendButtnon: UIButton!
     override func viewDidLoad() {
