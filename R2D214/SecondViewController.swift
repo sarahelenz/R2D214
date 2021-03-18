@@ -11,7 +11,8 @@ import Firebase
 
 class SecondViewController:UIViewController {
     
-        let arrayOf = ArrayOf()
+    @IBOutlet weak var tableview: UITableView!
+    let arrayOf = ArrayOf()
     var counter = 000001
     
     override func viewDidLoad(){

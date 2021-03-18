@@ -37,6 +37,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
         loadDatabaseIDNums()
+        loadDatabaseIDNums()
         print(idnum)
     }
     public func getData()
@@ -113,10 +114,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         reference.observeSingleEvent(of: .value) { (snapshot) in
             for dataa in snapshot.children.allObjects as! [DataSnapshot] {
                 let id = dataa.key
-                print(id)
                 if id.contains("6") {
+                    if self.idnum.contains(id) {
+                        
+                    }
+                    else {
                     self.idnum.append(id)
-                    
+                    print("id: ",id)
+                    }
                 }
             }
         }
