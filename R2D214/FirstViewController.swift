@@ -10,17 +10,17 @@ import UIKit
 import Firebase
 
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
- 
+    
     
     let arrayOf = ArrayOf()
     
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     @IBOutlet weak var tableView1: UITableView!
-    
+    var check = 1
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
     var arrayCount = 0
-     var yearNumbers: [String] = []
+    var yearNumbers: [String] = []
     
     override func viewDidLoad() {
         tableView1.dataSource = self
@@ -35,6 +35,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
+        loadDatabaseIDNums()
+        print(idnum)
     }
     public func getData()
     {
@@ -56,7 +58,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let EmailDictionary = dictionary["E-mail"] as! String
                     let firstNameDictionary = dictionary["First Name"] as! String
                     let lastNameDictionary = dictionary["Last Name"] as! String
-                   
+                    
                     self.idnum.append(IDNumber)
                 }
                 self.tableView1.reloadData()
@@ -66,28 +68,28 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func getYearNumbers(){
-      
+        
         for ids in idnum{
             var id = idnum[arrayCount]
             yearNumbers.append(id[1..<3])
             arrayCount += 1
         }
-      let unique = Array(Set(yearNumbers))
+        let unique = Array(Set(yearNumbers))
         print(yearNumbers)
-  
+        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewCount.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      
-        getYearNumbers()
-       
         
-   //  let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
+        getYearNumbers()
+        
+        
+        //  let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-    //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
+        //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
@@ -97,8 +99,24 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nvc = segue.destination as! ArrayOf
+        //        let nvc = segue.destination as! ArrayOf
         
     }
-
+    func loadDatabaseIDNums() {
+        if check == 1 {
+            idnum = []
+            check = 2
+        }
+        let reference = Database.database().reference()
+        reference.observeSingleEvent(of: .value) { (snapshot) in
+            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+                let id = dataa.key
+                print(id)
+                if id.contains("6") {
+                    self.idnum.append(id)
+                    
+                }
+            }
+        }
+    }
 }
