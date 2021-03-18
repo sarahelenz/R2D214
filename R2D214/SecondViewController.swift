@@ -33,7 +33,7 @@ class SecondViewController:UIViewController {
                   
                     for i in self.counter...999999 {
                         snapshot.childSnapshot(forPath: String(i))
-                        self.arrayOf.IDNumber.append(i)
+                        self.arrayOf.IDNumber.append(String(i))
 //                var secondID = snapshot.childSnapshot(forPath: "621092")
 //                var thirdID = snapshot.childSnapshot(forPath: "623182")
                         self.counter += 000001

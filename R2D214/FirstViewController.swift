@@ -57,8 +57,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let EmailDictionary = dictionary["E-mail"] as! String
                     let firstNameDictionary = dictionary["First Name"] as! String
                     let lastNameDictionary = dictionary["Last Name"] as! String
-                   
-                    self.idnum.append(IDNumber)
+                    
+                    self.idnum.append(contentsOf: self.arrayOf.IDNumber)
+                    
                 }
                 self.tableView1.reloadData()
             }
@@ -74,7 +75,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             arrayCount += 1
         }
       let unique = Array(Set(yearNumbers))
-        print(yearNumbers)
+       
   
     }
     
