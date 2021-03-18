@@ -44,7 +44,9 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
             mail.setMessageBody("<p>\(field.text!)</p>", isHTML: true)
             present(mail, animated: true)
         } else {
-            // show failure alert
+            let alert = UIAlertController(title: "Message Failed", message: "Your device cannot send mail", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
