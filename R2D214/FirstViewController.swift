@@ -37,8 +37,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
         loadDatabaseIDNums()
-        loadDatabaseIDNums()
-        print(idnum)
+        getYearNumbers()
     }
     public func getData()
     {
@@ -70,7 +69,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func getYearNumbers(){
-        
+        loadDatabaseIDNums()
+        print(idnum)
         for ids in idnum{
             var id = idnum[arrayCount]
             yearNumbers.append(id[1..<3])
@@ -111,7 +111,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             check = 2
         }
         let reference = Database.database().reference()
-        reference.observeSingleEvent(of: .value) { (snapshot) in
+        reference.observeSingleEvent(of: .value) { [self] (snapshot) in
             for dataa in snapshot.children.allObjects as! [DataSnapshot] {
                 let id = dataa.key
                 if id.contains("6") {
@@ -119,8 +119,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                         
                     }
                     else {
-                    self.idnum.append(id)
-                    print("id: ",id)
+                        self.idnum.append(id)
+                        print("id: ",id)
+                        print(idnum)
                     }
                 }
             }
