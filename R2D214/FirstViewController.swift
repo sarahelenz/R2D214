@@ -23,6 +23,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var yearNumbers: [String] = []
     
     override func viewDidLoad() {
+        
         tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
@@ -78,6 +79,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         print(yearNumbers)
         
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewCount.count
     }
