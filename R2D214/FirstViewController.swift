@@ -60,7 +60,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let firstNameDictionary = dictionary["First Name"] as! String
                     let lastNameDictionary = dictionary["Last Name"] as! String
                     
-                    self.idnum.append(IDNumber)
+                    self.idnum.append(contentsOf: self.arrayOf.IDNumber)
+                    
                 }
                 self.tableView1.reloadData()
             }
@@ -76,9 +77,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             yearNumbers.append(id[1..<3])
             arrayCount += 1
         }
-        let unique = Array(Set(yearNumbers))
-        print(yearNumbers)
-        
+      let unique = Array(Set(yearNumbers))
+       
+  
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

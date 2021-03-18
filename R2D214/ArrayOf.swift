@@ -9,7 +9,7 @@
 import Foundation
 
 class ArrayOf {
-    var IDNumber: [Int] = []
+    var IDNumber: [String] = []
     var counselor: [String] = []
     var Email: [String] = []
     var firstName: [String] = []
