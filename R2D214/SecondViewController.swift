@@ -14,7 +14,8 @@ class SecondViewController:UIViewController {
     @IBOutlet weak var tableview: UITableView!
     let arrayOf = ArrayOf()
     var counter = 000001
-    
+    var check = 1
+    var IDNumber: [String] = []
     override func viewDidLoad(){
         super.viewDidLoad()
         getData()
@@ -31,16 +32,33 @@ class SecondViewController:UIViewController {
                 print(reference)
                 
                 reference.observeSingleEvent(of: .value) { (snapshot) in
-                  
-                    for i in self.counter...999999 {
-                        snapshot.childSnapshot(forPath: String(i))
-                        self.arrayOf.IDNumber.append(String(i))
+//
+//                    for i in self.counter...999999 {
+//                        snapshot.childSnapshot(forPath: String(i))
+//                        self.arrayOf.IDNumber.append(String(i))
 //                var secondID = snapshot.childSnapshot(forPath: "621092")
 //                var thirdID = snapshot.childSnapshot(forPath: "623182")
-                        self.counter += 000001
-                    }
+//                        self.counter += 000001
+//                    }
                     for data in snapshot.children.allObjects as! [DataSnapshot] {
-
+                        func loadDatabaseIDNums() {
+                            if self.check == 1 {
+                                self.IDNumber = []
+                                self.check = 2
+                               }
+                               let reference = Database.database().reference()
+                               reference.observeSingleEvent(of: .value) { [self] (snapshot) in
+                                   for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+                                       let id = dataa.key
+                                       if id.contains("6") {
+                                           if self.IDNumber.contains(id) {
+                                               
+                                           }
+                                           else {
+                                               self.IDNumber.append(id)
+                                               print("id: ",id)
+                                               print(self.IDNumber)
+                                           }
 
                         
                     
@@ -57,3 +75,15 @@ class SecondViewController:UIViewController {
                 
     }
 }
+}
+}
+}
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewCount.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+    }
+}
+
