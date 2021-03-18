@@ -10,11 +10,17 @@ import UIKit
 import Firebase
 
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+ 
+    
     let arrayOf = ArrayOf()
     
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     @IBOutlet weak var tableView1: UITableView!
+    
     var tableViewCount = [1,2,3,4,5]
+    var idnum: [String] = []
+    var arrayCount = 0
+     var yearNumbers: [String] = []
     
     override func viewDidLoad() {
         tableView1.dataSource = self
@@ -50,27 +56,38 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let EmailDictionary = dictionary["E-mail"] as! String
                     let firstNameDictionary = dictionary["First Name"] as! String
                     let lastNameDictionary = dictionary["Last Name"] as! String
+                   
+                    self.idnum.append(IDNumber)
                 }
                 self.tableView1.reloadData()
             }
         }
+    }
+    
+    
+    func getYearNumbers(){
+      
+        for ids in idnum{
+            var id = idnum[arrayCount]
+            yearNumbers.append(id[1..<3])
+            arrayCount += 1
+        }
+      let unique = Array(Set(yearNumbers))
+        print(yearNumbers)
+  
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewCount.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let classYears = arrayOf.IDNumber[1...2]
-        var yearNumbers: [Int] = []
-        for year in classYears{
-            yearNumbers.append(year)
-            if classYears.contains(year){
-                break
-            }
-        }
-        let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
+      
+        getYearNumbers()
+       
+        
+   //  let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        cell.textLabel?.text = "\(classTitles[indexPath.row])"
+    //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
@@ -83,4 +100,5 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         let nvc = segue.destination as! ArrayOf
         
     }
+
 }
