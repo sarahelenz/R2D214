@@ -32,7 +32,8 @@ class SecondViewController:UIViewController {
                 reference.observeSingleEvent(of: .value) { (snapshot) in
                   
                     for i in self.counter...999999 {
-                snapshot.childSnapshot(forPath: String(i))
+                        snapshot.childSnapshot(forPath: String(i))
+                        self.arrayOf.IDNumber.append(i)
                     print(snapshot.childSnapshot(forPath: String(i)))
 //                var secondID = snapshot.childSnapshot(forPath: "621092")
 //                var thirdID = snapshot.childSnapshot(forPath: "623182")
