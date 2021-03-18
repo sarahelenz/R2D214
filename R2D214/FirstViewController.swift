@@ -73,12 +73,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadDatabaseIDNums()
         print(idnum)
         for ids in idnum{
-            var id = idnum[arrayCount]
+            var id = ids[arrayCount]
             yearNumbers.append(id[1..<3])
             arrayCount += 1
         }
-      let unique = Array(Set(yearNumbers))
-       
+    let unique = Array(Set(yearNumbers))
+       print(yearNumbers)
   
     }
     
@@ -91,9 +91,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         getYearNumbers()
         
         
-        //  let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
+          //let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
+       //    cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
@@ -122,7 +122,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     else {
                         self.idnum.append(id)
                         print("id: ",id)
-                        print(idnum)
+                        print(self.idnum)
                     }
                 }
             }
