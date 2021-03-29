@@ -36,7 +36,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
-        getYearNumbers()
+       getYearNumbers()
     }
     func getData()
     {
@@ -68,15 +68,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-    func getYearNumbers(){
-        loadDatabaseIDNums()
-        print(idnum)
-        for ids in idnum[0..<idnum.count]{
-           yearNumbers.append(String(ids[1...2]))
-         }
-  //    print(yearNumbers)
-  
-    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewCount.count
@@ -84,11 +76,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
-        
-          let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
+    //    let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-           cell.textLabel?.text = "\(classTitles[indexPath.row])"
+      //     cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
@@ -123,4 +113,13 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
     }
+    func getYearNumbers(){
+          loadDatabaseIDNums()
+          print(idnum)
+          for ids in idnum[0..<idnum.count]{
+             yearNumbers.append(String(ids[1...2]))
+           }
+    //    print(yearNumbers)
+    
+      }
 }
