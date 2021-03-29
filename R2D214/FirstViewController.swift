@@ -69,17 +69,17 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-    func getYearNumbers(){
-        print("testyn")
-        var yearNumbers: [String] = []
-        print("yn",idnum)
-        for ids in idnum[0..<idnum.count]{
-            
-            
-        }
-        print(yearNumbers)
-        
-    }
+//    func getYearNumbers(){
+//        print("testyn")
+//        var yearNumbers: [String] = []
+//        print("yn",idnum)
+//        for ids in idnum[0..<idnum.count]{
+//
+//
+//        }
+//        print(yearNumbers)
+//
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewCount.count
