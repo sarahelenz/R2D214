@@ -56,6 +56,48 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
             present(alert, animated: true, completion: nil)
         }
     }
+    //function below needs to be tested -- have not set it up to run within the app
+    func sendEmailToClass(year:Int) {
+        loadDatabase()
+        let emailArr = sortEmailsByYear(year: year)
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            print("emailfunc",emailArr)
+            mail.setToRecipients(emailArr)
+            mail.setMessageBody("<p>\(field.text!)</p>", isHTML: true)
+            present(mail, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Message Failed", message: "Your device cannot send mail", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    //function below needs to be tested -- have not set it up to run within the app
+    func sortEmailsByYear(year:Int) -> Array<String> {
+        let yearNumbers = ["21","22","23","24"] //replace with year number array
+        var yearIds:[String] = []
+        var emailsyear:[String] = []
+        for id in idnum {
+            if String(id)[1...2] == yearNumbers[year] {
+                yearIds.append(String(id))
+            }
+        }
+        for id1 in yearIds{
+            let reference = Database.database().reference().child(String(id1))
+            reference.observeSingleEvent(of: .value) { (snapshot) in
+                for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+                    let email = dataa.value as! String
+                    print(email)
+                    if email.contains("d214") {
+                        emailsyear.append(email)
+                        print(emailsyear)
+                    }
+                }
+            }
+        }
+        return emailsyear
+    }
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
         switch result{
