@@ -73,19 +73,19 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
 //                    self.tableView.reloadData()
                     }
                 
-    }
+    
 }
 }
                 }
-    
+    }
 
        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewCount.count
-        
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        
+             cell.textLabel?.text = "\(IDNumber[indexPath.row])"
            return cell
 }
 }
+
