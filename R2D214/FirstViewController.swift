@@ -23,7 +23,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
      var yearNumbers: [String] = []
     
     override func viewDidLoad() {
-        
+        loadDatabaseIDNums()
         tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
@@ -36,7 +36,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
-       getYearNumbers()
+        loadDatabaseIDNums()
+        //        getYearNumbers()
     }
     func getData()
     {
@@ -68,7 +69,17 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-    
+//    func getYearNumbers(){
+//        print("testyn")
+//        var yearNumbers: [String] = []
+//        print("yn",idnum)
+//        for ids in idnum[0..<idnum.count]{
+//
+//
+//        }
+//        print(yearNumbers)
+//
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewCount.count
@@ -108,6 +119,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                         self.idnum.append(id)
                         print("id: ",id)
                         print(self.idnum)
+                        getYearNumbers()
                     }
                 }
             }
