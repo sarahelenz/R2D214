@@ -39,7 +39,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadDatabaseIDNums()
         getYearNumbers()
     }
-    public func getData()
+    func getData()
     {
         arrayOf.IDNumber = []
         arrayOf.counselor = []
@@ -70,6 +70,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func getYearNumbers(){
+        print("test")
         loadDatabaseIDNums()
         print(idnum)
         for ids in idnum{
