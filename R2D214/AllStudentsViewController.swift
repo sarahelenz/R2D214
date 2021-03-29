@@ -18,17 +18,15 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return studentArr.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: "cell")
+        let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
         let student = studentArr[indexPath.row]
         let name = student["First Name"]! + student["Last Name"]!
-        cell?.textLabel?.text = name
-        return cell!
+        cell.textLabel?.text = name
+        return cell
     }
 }
