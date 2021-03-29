@@ -56,7 +56,7 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
             present(alert, animated: true, completion: nil)
         }
     }
-    //function below needs to be tested -- have not set it up to run within the app 
+    //function below needs to be tested -- have not set it up to run within the app
     func sendEmailToClass(year:Int) {
         loadDatabase()
         let emailArr = sortEmailsByYear(year: year)
@@ -85,7 +85,7 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
         }
         for id1 in yearIds{
             let reference = Database.database().reference().child(String(id1))
-            reference.observeSingleEvent(of: .value) { [self] (snapshot) in
+            reference.observeSingleEvent(of: .value) { (snapshot) in
                 for dataa in snapshot.children.allObjects as! [DataSnapshot] {
                     let email = dataa.value as! String
                     print(email)
