@@ -9,10 +9,11 @@
 import UIKit
 import Firebase
 
-class SecondViewController:UIViewController {
+class SecondViewController:UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var tableview: UITableView!
     let arrayOf = ArrayOf()
+    var tableViewCount = [1,2,3,4,5]
     var counter = 000001
     var check = 1
     var IDNumber: [String] = []
@@ -50,7 +51,6 @@ class SecondViewController:UIViewController {
                                reference.observeSingleEvent(of: .value) { [self] (snapshot) in
                                    for dataa in snapshot.children.allObjects as! [DataSnapshot] {
                                        let id = dataa.key
-                                       if id.contains("6") {
                                            if self.IDNumber.contains(id) {
                                                
                                            }
@@ -76,14 +76,16 @@ class SecondViewController:UIViewController {
     }
 }
 }
-}
-}
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewCount.count
-    }
+                }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewCount.count
         
     }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
+        
+           return cell
 }
-
+}
