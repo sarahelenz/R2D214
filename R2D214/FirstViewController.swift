@@ -20,7 +20,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
     var arrayCount = 0
-    var yearNumbers: [String] = []
+    
     
     override func viewDidLoad() {
         
@@ -70,15 +70,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func getYearNumbers(){
+        var yearNumbers: [String] = []
         loadDatabaseIDNums()
         print(idnum)
         for ids in idnum{
-            var id = ids[arrayCount]
-            yearNumbers.append(id[1..<3])
-            arrayCount += 1
-        }
+            yearNumbers.append(String(ids[1...2]))
+         }
     let unique = Array(Set(yearNumbers))
-       print(yearNumbers)
+      print(yearNumbers)
   
     }
     
