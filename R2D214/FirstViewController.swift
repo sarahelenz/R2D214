@@ -117,7 +117,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
           loadDatabaseIDNums()
           print(idnum)
           for ids in idnum[0..<idnum.count]{
-             yearNumbers.append(String(ids[1...2]))
+            print(String(ids[1...2]))
            }
     //    print(yearNumbers)
     
