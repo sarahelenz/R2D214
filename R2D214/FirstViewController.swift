@@ -23,7 +23,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     override func viewDidLoad() {
-        
+        loadDatabaseIDNums()
         tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
@@ -37,7 +37,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
         loadDatabaseIDNums()
-        getYearNumbers()
+        //        getYearNumbers()
     }
     func getData()
     {
@@ -70,15 +70,15 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func getYearNumbers(){
+        print("testyn")
         var yearNumbers: [String] = []
-        loadDatabaseIDNums()
-        print(idnum)
+        print("yn",idnum)
         for ids in idnum[0..<idnum.count]{
             
             
-         }
-      print(yearNumbers)
-  
+        }
+        print(yearNumbers)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,12 +87,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        getYearNumbers()
+        //        getYearNumbers()
         
         
-          let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
+        //          let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-           cell.textLabel?.text = "\(classTitles[indexPath.row])"
+        //           cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
@@ -122,6 +122,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                         self.idnum.append(id)
                         print("id: ",id)
                         print(self.idnum)
+                        getYearNumbers()
                     }
                 }
             }
