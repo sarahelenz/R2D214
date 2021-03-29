@@ -56,6 +56,7 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
             present(alert, animated: true, completion: nil)
         }
     }
+    //function below needs to be tested -- have not set it up to run within the app 
     func sendEmailToClass(year:Int) {
         loadDatabase()
         let emailArr = sortEmailsByYear(year: year)
@@ -72,6 +73,7 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
             present(alert, animated: true, completion: nil)
         }
     }
+    //function below needs to be tested -- have not set it up to run within the app
     func sortEmailsByYear(year:Int) -> Array<String> {
         let yearNumbers = ["21","22","23","24"] //replace with year number array
         var yearIds:[String] = []
