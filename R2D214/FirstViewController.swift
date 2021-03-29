@@ -73,10 +73,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         var yearNumbers: [String] = []
         loadDatabaseIDNums()
         print(idnum)
-        for ids in idnum{
-            yearNumbers.append(String(ids[1...2]))
+        for ids in idnum[0..<idnum.count]{
+            
+            
          }
-    let unique = Array(Set(yearNumbers))
       print(yearNumbers)
   
     }
