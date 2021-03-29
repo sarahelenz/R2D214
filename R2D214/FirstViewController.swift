@@ -20,7 +20,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
     var arrayCount = 0
-    
+     var yearNumbers: [String] = []
     
     override func viewDidLoad() {
         
@@ -36,7 +36,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
-        loadDatabaseIDNums()
         getYearNumbers()
     }
     func getData()
@@ -70,14 +69,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func getYearNumbers(){
-        var yearNumbers: [String] = []
         loadDatabaseIDNums()
         print(idnum)
         for ids in idnum[0..<idnum.count]{
-            
-            
+           yearNumbers.append(String(ids[1...2]))
          }
-      print(yearNumbers)
+  //    print(yearNumbers)
   
     }
     
@@ -87,7 +84,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        getYearNumbers()
         
         
           //let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
