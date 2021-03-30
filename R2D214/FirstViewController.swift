@@ -119,7 +119,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                         self.idnum.append(id)
                         print("id: ",id)
                         print(self.idnum)
-                        getYearNumbers()
+                        self.getYearNumbers()
                     }
                 }
             }
@@ -129,9 +129,11 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
           loadDatabaseIDNums()
           print(idnum)
           for ids in idnum[0..<idnum.count]{
-            print(String(ids[1...2]))
-           }
-    //    print(yearNumbers)
-    
+            yearNumbers.append(String(ids[1...2]))
+           
+        if yearNumbers[0..<yearNumbers.count] == yearNumbers[0..<yearNumbers.count]{
+            continue
+        }
+        }
       }
 }
