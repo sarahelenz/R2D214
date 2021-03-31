@@ -34,7 +34,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             
         }
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
-            return
+            let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
+            self.navigationController?.pushViewController(thirdvc, animated: true)
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
@@ -103,8 +104,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nvc = segue.destination as! FirstViewController
-        nvc.level = 0
+       // let nvc = segue.destination as! FirstViewController
+        //nvc.level = 0
+        //nvc.yearNumbers = yearNumbers
         
         
     }
@@ -146,5 +148,4 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         
       }
-
 }
