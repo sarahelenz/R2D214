@@ -17,10 +17,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     @IBOutlet weak var tableView1: UITableView!
     var check = 1
+    var level = 0
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
-    var arrayCount = 0
-    var yearNumbers: [String] = []
+     var uniqueValues: [Int] = []
+   
+     var yearNumbers: [String] = []
     
     override func viewDidLoad() {
         loadDatabaseIDNums()
@@ -32,12 +34,13 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             
         }
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
-            return
+            let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
+            self.navigationController?.pushViewController(thirdvc, animated: true)
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
         loadDatabaseIDNums()
-        //        getYearNumbers()
+         //       getYearNumbers()
     }
     func getData()
     {
@@ -86,10 +89,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        //    let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
+      // loadDatabaseIDNums()
+       // getYearNumbers()
+      
+    //    let classTitles = ["Class of \(uniqueValues[0])", "Class of \(uniqueValues[1])", "Class of \(uniqueValues[2])", "Class of \(uniqueValues[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        //     cell.textLabel?.text = "\(classTitles[indexPath.row])"
+    //      cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
@@ -99,7 +104,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        let nvc = segue.destination as! ArrayOf
+       // let nvc = segue.destination as! FirstViewController
+        //nvc.level = 0
+        //nvc.yearNumbers = yearNumbers
+        
         
     }
     func loadDatabaseIDNums() {
@@ -126,13 +134,18 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     func getYearNumbers(){
-        loadDatabaseIDNums()
-        print(idnum)
-        for ids in idnum[0..<idnum.count]{
+          loadDatabaseIDNums()
+       
+          print(idnum)
+          for ids in idnum[0..<idnum.count]{
             yearNumbers.append(String(ids[1...2]))
-            if yearNumbers[0..<yearNumbers.count] == yearNumbers[0..<yearNumbers.count]{
-                continue
-            }
+            var uniqueValues = Array(Set(yearNumbers))
+            uniqueValues.sort()
+            
+            print(uniqueValues)
+            print(uniqueValues.count)
         }
-    }
+        
+        
+      }
 }
