@@ -39,7 +39,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
         loadDatabaseIDNums()
-                getYearNumbers()
+         //       getYearNumbers()
     }
     func getData()
     {
@@ -88,10 +88,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-    //    let classTitles = ["Class of \(yearNumbers[0])", "Class of \(yearNumbers[1])", "Class of \(yearNumbers[2])", "Class of \(yearNumbers[3])", "Entire School"]
+      // loadDatabaseIDNums()
+       // getYearNumbers()
+      
+    //    let classTitles = ["Class of \(uniqueValues[0])", "Class of \(uniqueValues[1])", "Class of \(uniqueValues[2])", "Class of \(uniqueValues[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-      //     cell.textLabel?.text = "\(classTitles[indexPath.row])"
+    //      cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
@@ -137,8 +139,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             yearNumbers.append(String(ids[1...2]))
             var uniqueValues = Array(Set(yearNumbers))
             uniqueValues.sort()
+            
             print(uniqueValues)
-          
+            print(uniqueValues.count)
         }
         
         
