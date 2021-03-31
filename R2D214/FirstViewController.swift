@@ -19,7 +19,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var check = 1
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
-    var arrayCount = 0
+     var uniqueValues: [Int] = []
+   
      var yearNumbers: [String] = []
     
     override func viewDidLoad() {
@@ -37,7 +38,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
         loadDatabaseIDNums()
-        //        getYearNumbers()
+                getYearNumbers()
     }
     func getData()
     {
@@ -127,13 +128,17 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     func getYearNumbers(){
           loadDatabaseIDNums()
+       
           print(idnum)
           for ids in idnum[0..<idnum.count]{
             yearNumbers.append(String(ids[1...2]))
-           
-        if yearNumbers[0..<yearNumbers.count] == yearNumbers[0..<yearNumbers.count]{
-            continue
+            var uniqueValues = Array(Set(yearNumbers))
+            uniqueValues.sort()
+            print(uniqueValues)
+          
         }
-        }
+        
+        
       }
+
 }
