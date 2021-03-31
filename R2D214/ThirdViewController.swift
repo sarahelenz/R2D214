@@ -16,10 +16,23 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     @IBOutlet weak var tableview:UITableView!
     let counselorArr = ["Bialeschki","Bowen","Deppen","Galarza","Mo","Muck","Waller"]
     var counselorStudents = [[],[],[],[],[],[],[]]
+    let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"]] //data segued from Sarah's code, will need to be all students in a grade
         // Do any additional setup after loading the view.
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
+            let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
+            self.navigationController?.pushViewController(messageVCC, animated: true)
+            
+        }
+        let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
+            return
+        }
+        messageAlert.addAction(yesAction)
+        messageAlert.addAction(noAction)
         
         for student in studentArr{
             let stuCounselor = student["Counselor"]
