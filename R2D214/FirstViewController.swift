@@ -102,6 +102,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let nvc = segue.destination as! FirstViewController
         nvc.level = 0
+        nvc.yearNumbers = yearNumbers
         
         
     }
