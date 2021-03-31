@@ -17,6 +17,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     @IBOutlet weak var tableView1: UITableView!
     var check = 1
+    var level = 0
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
      var uniqueValues: [Int] = []
@@ -100,7 +101,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        let nvc = segue.destination as! ArrayOf
+        let nvc = segue.destination as! FirstViewController
+        nvc.level = 0
+        
         
     }
     func loadDatabaseIDNums() {

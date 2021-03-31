@@ -14,6 +14,9 @@ import FirebaseDatabase
 class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     var emails:[String] = []
     var check = 1
+    var level = 0 //will have to implement way to change level depending on which viewcontroller you are on
+    // ^^ level = 0 is for all, level = 1 is for one class, level = 2 is for one counselor, level = 3 is for one student
+    let yearNumbers = ["21","22","23","24"] //replace with year number array
     var idnum:[Int] = [621006,621092,623182] //need to set equal to id numbers recieved from previous view controller
     @IBOutlet weak var field: UITextField!
     @IBOutlet weak var sendButtnon: UIButton!
@@ -57,7 +60,7 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
     //function below needs to be tested -- have not set it up to run within the app
-    func sendEmailToClass(year:Int) {
+    func sendEmailToClass(year:String) {
         loadDatabase()
         let emailArr = sortEmailsByYear(year: year)
         if MFMailComposeViewController.canSendMail() {
@@ -74,12 +77,11 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
     //function below needs to be tested -- have not set it up to run within the app
-    func sortEmailsByYear(year:Int) -> Array<String> {
-        let yearNumbers = ["21","22","23","24"] //replace with year number array
+    func sortEmailsByYear(year:String) -> Array<String> {
         var yearIds:[String] = []
         var emailsyear:[String] = []
         for id in idnum {
-            if String(id)[1...2] == yearNumbers[year] {
+            if String(id)[1...2] == year {
                 yearIds.append(String(id))
             }
         }
@@ -120,6 +122,12 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
     @IBAction func sendAct(_ sender: Any) {
-        sendEmail()
+        if level == 0 {
+            sendEmail()
+        }
+        else if level == 1 {
+            sendEmailToClass(year: yearNumbers[0]) //will have to change this to variable based on yearnumbers array later on
+        }
+        
     }
 }
