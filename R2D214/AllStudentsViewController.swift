@@ -26,7 +26,7 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
         let student = studentArr[indexPath.row]
-        let name = student["First Name"]! + student["Last Name"]!
+        let name = student["First Name"]! + " " + student["Last Name"]!
         cell.textLabel?.text = name
         return cell
     }
