@@ -26,13 +26,15 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         loadDatabaseIDNums()
+        getYearNumbers()
         tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
             self.navigationController?.pushViewController(messageVCC, animated: true)
-            
+         print(uniqueValues)
         }
+        
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
             let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
             self.navigationController?.pushViewController(thirdvc, animated: true)
@@ -95,7 +97,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     //    let classTitles = ["Class of \(uniqueValues[0])", "Class of \(uniqueValues[1])", "Class of \(uniqueValues[2])", "Class of \(uniqueValues[3])", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
     //      cell.textLabel?.text = "\(classTitles[indexPath.row])"
-        
+        print(uniqueValues)
         return cell
         
     }
