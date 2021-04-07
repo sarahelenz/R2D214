@@ -29,10 +29,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         getYearNumbers()
         tableView1.dataSource = self
         super.viewDidLoad()
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
             self.navigationController?.pushViewController(messageVCC, animated: true)
-         //print(uniqueValues)
+            print(self.uniqueValues)
         }
         
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
@@ -90,17 +90,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         return tableViewCount.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      // loadDatabaseIDNums()
-       // getYearNumbers()
-      
-    //    let classTitles = ["Class of \(uniqueValues[0])", "Class of \(uniqueValues[1])", "Class of \(uniqueValues[2])", "Class of \(uniqueValues[3])", "Entire School"]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-    //      cell.textLabel?.text = "\(classTitles[indexPath.row])"
-        print(uniqueValues)
-        return cell
-        
-    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         present(messageAlert, animated: true, completion: nil)
@@ -145,9 +135,20 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             uniqueValues.sort()
             
             print(uniqueValues)
-            print(uniqueValues.count)
+           print(uniqueValues.count)
         }
         
         
       }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      // loadDatabaseIDNums()
+        getYearNumbers()
+      
+      //  let classTitles = ["Class of \(uniqueValues[0])", "Class of \(uniqueValues[1])", "Class of \(uniqueValues[2])", "Class of \(uniqueValues[3])", "Entire School"]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
+     //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
+        print(uniqueValues)
+        return cell
+        
+    }
 }
