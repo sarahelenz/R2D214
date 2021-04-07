@@ -32,7 +32,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
             self.navigationController?.pushViewController(messageVCC, animated: true)
-         print(uniqueValues)
+         //print(uniqueValues)
         }
         
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
@@ -106,9 +106,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       // let nvc = segue.destination as! FirstViewController
+        let nvc = segue.destination as! messageVC
         //nvc.level = 0
-        //nvc.yearNumbers = yearNumbers
+        nvc.idnum = self.idnum
         
         
     }
