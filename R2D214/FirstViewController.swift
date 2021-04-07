@@ -96,9 +96,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       // let nvc = segue.destination as! FirstViewController
+        let nvc = segue.destination as! messageVC
         //nvc.level = 0
-        //nvc.yearNumbers = yearNumbers
+        nvc.idnum = self.idnum
         
         
     }
