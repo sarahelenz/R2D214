@@ -11,7 +11,7 @@ import Firebase
 
 class SecondViewController:UIViewController, UITableViewDataSource, UITableViewDelegate{
     
-    @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var tableView2: UITableView!
     let arrayOf = ArrayOf()
     //    var tableViewCount = [1,2,3,4,5]
     var counter = 000001
@@ -19,7 +19,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     var IDNumber: [String] = []
     override func viewDidLoad(){
         super.viewDidLoad()
-        
+          tableView2.dataSource = self
         getData()
     }
     public func getData(){
@@ -46,6 +46,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                 let IDNumber = data.key
                 print(self.arrayOf.IDNumber)
                 let dictionary = data.value as! NSDictionary
+                print(IDNumber)
 //                let CounselorDictionary = dictionary["counselor"] as! String
 //                let EmailDictionary = dictionary["E-mail"] as! String
             //let firstNameDictionary = dictionary["First Name"] as! String
