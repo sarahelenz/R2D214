@@ -148,9 +148,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         var classYears: [String] = []
         classYears.append(contentsOf: getYearNumbers())
         print(classYears)
-        //   let classTitles = ["Class of \(classYears[0])", "Class of \(classYears[1])", "Class of \(classYears[2])", "Class of \(classYears[3])", "Entire School"]
+           let classTitles = ["Class of ", "Class of ", "Class of ", "Class of ", "Entire School"]
            let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-        //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
+           cell.textLabel?.text = "\(classTitles[indexPath.row])"
            
            return cell
            
