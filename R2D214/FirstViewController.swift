@@ -20,19 +20,60 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var level = 0
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
-     var uniqueValues: [Int] = []
-   
-     var yearNumbers: [String] = []
+    var finalYears: [String] = []
+   var yearNumbers: [String] = []
+    var uniqueValues: [String] = []
+    
+    func loadDatabaseIDNums() {
+        if check == 1 {
+            idnum = []
+            check = 2
+        }
+        let reference = Database.database().reference()
+        reference.observeSingleEvent(of: .value) { [self] (snapshot) in
+            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+                let id = dataa.key
+                if id.contains("6") {
+                    if self.idnum.contains(id) {
+                        
+                    }
+                    else {
+                        self.idnum.append(id)
+                        print("id: ",id)
+                        print(self.idnum)
+                        self.getYearNumbers()
+                    }
+                }
+            }
+        }
+    }
+    func getYearNumbers() -> [String]{
+          loadDatabaseIDNums()
+          print(idnum)
+     for ids in idnum[0..<idnum.count]{
+                   yearNumbers.append(String(ids[1...2]))
+                   uniqueValues = Array(Set(yearNumbers))
+                }
+     finalYears.append(contentsOf: uniqueValues)
+           finalYears = Array(Set(uniqueValues))
+           finalYears.sort()
+           print(finalYears.count)
+           print(finalYears)
+        return finalYears
+        }
     
     override func viewDidLoad() {
+        
+
         loadDatabaseIDNums()
-        getYearNumbers()
+           
+      
+        
         tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
             self.navigationController?.pushViewController(messageVCC, animated: true)
-            print(self.uniqueValues)
         }
         
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
@@ -41,8 +82,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
-        loadDatabaseIDNums()
-         //       getYearNumbers()
+       // loadDatabaseIDNums()
+       // getYearNumbers()
     }
     func getData()
     {
@@ -102,53 +143,17 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         
     }
-    func loadDatabaseIDNums() {
-        if check == 1 {
-            idnum = []
-            check = 2
-        }
-        let reference = Database.database().reference()
-        reference.observeSingleEvent(of: .value) { [self] (snapshot) in
-            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-                let id = dataa.key
-                if id.contains("6") {
-                    if self.idnum.contains(id) {
-                        
-                    }
-                    else {
-                        self.idnum.append(id)
-                        print("id: ",id)
-                        print(self.idnum)
-                        self.getYearNumbers()
-                    }
-                }
-            }
-        }
-    }
-    func getYearNumbers(){
-          loadDatabaseIDNums()
-       
-          print(idnum)
-          for ids in idnum[0..<idnum.count]{
-            yearNumbers.append(String(ids[1...2]))
-            var uniqueValues = Array(Set(yearNumbers))
-            uniqueValues.sort()
-            
-            print(uniqueValues)
-           print(uniqueValues.count)
-        }
-        
-        
-      }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      // loadDatabaseIDNums()
-        getYearNumbers()
-      
-      //  let classTitles = ["Class of \(uniqueValues[0])", "Class of \(uniqueValues[1])", "Class of \(uniqueValues[2])", "Class of \(uniqueValues[3])", "Entire School"]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-     //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
-        print(uniqueValues)
-        return cell
-        
-    }
+        loadDatabaseIDNums()
+        var classYears: [String] = []
+        classYears.append(contentsOf: getYearNumbers())
+        print(classYears)
+        //   let classTitles = ["Class of \(classYears[0])", "Class of \(classYears[1])", "Class of \(classYears[2])", "Class of \(classYears[3])", "Entire School"]
+           let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
+        //   cell.textLabel?.text = "\(classTitles[indexPath.row])"
+           
+           return cell
+           
+       }
+   
 }
