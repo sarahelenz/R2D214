@@ -65,9 +65,9 @@
                     <navigationItem key="navigationItem" id="p25-Bs-bCv">
                         <barButtonItem key="rightBarButtonItem" id="79q-wC-QIG">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SXo-kK-EBl">
-                                <rect key="frame" x="744" y="10" width="46" height="30"/>
+                                <rect key="frame" x="744" y="10" width="113" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Send a Message"/>
                                 <connections>
                                     <segue destination="4ti-Jt-UeP" kind="show" id="lEc-Yt-vGT"/>
                                 </connections>
