@@ -17,7 +17,7 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     var level = 0 //will have to implement way to change level depending on which viewcontroller you are on
     // ^^ level = 0 is for all, level = 1 is for one class, level = 2 is for one counselor, level = 3 is for one student
     let yearNumbers = ["21","22","23","24"] //replace with year number array
-    var idnum:[Int] = [621006,621092,623182] //need to set equal to id numbers recieved from previous view controller
+    var idnum:[String] = ["621006","621092","623182"] //need to set equal to id numbers recieved from previous view controller
     @IBOutlet weak var field: UITextField!
     @IBOutlet weak var sendButtnon: UIButton!
     override func viewDidLoad() {
