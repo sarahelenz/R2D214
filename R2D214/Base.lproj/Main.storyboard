@@ -38,14 +38,6 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell2" id="AiP-Yj-5iJ">
-                                        <rect key="frame" x="0.0" y="71.5" width="810" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AiP-Yj-5iJ" id="5SD-8D-s41">
-                                            <rect key="frame" x="0.0" y="0.0" width="810" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -65,7 +57,7 @@
                     <navigationItem key="navigationItem" id="p25-Bs-bCv">
                         <barButtonItem key="rightBarButtonItem" id="79q-wC-QIG">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SXo-kK-EBl">
-                                <rect key="frame" x="744" y="10" width="113" height="30"/>
+                                <rect key="frame" x="677" y="10" width="113" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Send a Message"/>
                                 <connections>

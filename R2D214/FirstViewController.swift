@@ -23,6 +23,11 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var finalYears: [String] = []
     var yearNumbers: [String] = []
     var uniqueValues: [String] = []
+    var fullNames: [String] = []
+    var freshmen: [String] = []
+    var sophomores: [String] = []
+    var juniors: [String] = []
+    var seniors: [String] = []
     
     func loadDatabaseIDNums() {
         if check == 1 {
@@ -63,12 +68,13 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
        
             finalYears = Array(Set(uniqueValues))
             finalYears.sort()
-        finalYears.append("Entire School")
+            finalYears.append("Entire School")
             print(finalYears)
             print(finalYears.count)
         
        
     }
+    
     
     
     override func viewDidLoad() {
@@ -109,6 +115,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let lastNameDictionary = dictionary["Last Name"] as! String
                     
                     self.idnum.append(contentsOf: self.arrayOf.IDNumber)
+                    self.fullNames.append("\(self.arrayOf.firstName)" + " " + "\(self.arrayOf.lastName)")
                     DispatchQueue.main.async {
                         self.tableView1.reloadData()
                     }
@@ -148,5 +155,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
         
     }
+    func organizeStudentsByYear(){
+        loadDatabaseIDNums()
+        DispatchQueue.main.async {
+            self.tableView1.reloadData()
+        }
+        for students in fullNames{
+            
+        }
     
+    }
 }
