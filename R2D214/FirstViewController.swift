@@ -73,6 +73,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     override func viewDidLoad() {
+        tableView1.allowsSelection = true
         loadDatabaseIDNums()
         tableView1.dataSource = self
         super.viewDidLoad()
@@ -88,6 +89,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
     }
+    
     func getData()
     {
         arrayOf.IDNumber = []
@@ -128,6 +130,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("yes you did select the row")
         present(messageAlert, animated: true, completion: nil)
     }
     func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
