@@ -136,7 +136,33 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         present(messageAlert, animated: true, completion: nil)
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+        sortByYears()
+        let nvc = segue.destination as! messageVC
+        let indexPath = tableView1.indexPathForSelectedRow
+        let selectedRow = indexPath?.row
+        if selectedRow == 4{
+            nvc.idnum = self.idnum
+        }
+        else{
+            nvc.idnum = self.studentsByYear[selectedRow!]
+        }
+    }
+    
+    func sortByYears(){
+        for id in idnum{
+            let stuYear = id[1...2]
+            for year in 0...3{
+                if stuYear == yearNumbers[year]{
+                    studentsByYear[year].append(id)
+                }
+            }
+            
+        }
+        
+    }
+    func prepare(for segue: UIStoryboardSegue, sender: UIButton) {
+        sortByYears()
         let nvc = segue.destination as! messageVC
         nvc.idnum = self.idnum
         
