@@ -21,7 +21,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var tableViewCount = [1,2,3,4,5]
     var idnum: [String] = []
     var finalYears: [String] = []
-   var yearNumbers: [String] = []
+    var yearNumbers: [String] = []
     var uniqueValues: [String] = []
     
     func loadDatabaseIDNums() {
@@ -47,28 +47,24 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
     }
-    func getYearNumbers() -> [String]{
-          loadDatabaseIDNums()
-          print(idnum)
-     for ids in idnum[0..<idnum.count]{
-                   yearNumbers.append(String(ids[1...2]))
-                   uniqueValues = Array(Set(yearNumbers))
-                }
-     finalYears.append(contentsOf: uniqueValues)
-           finalYears = Array(Set(uniqueValues))
-           finalYears.sort()
-           print(finalYears.count)
-           print(finalYears)
-        return finalYears
+    func getYearNumbers() {
+        loadDatabaseIDNums()
+        print(idnum)
+        for ids in idnum[0..<idnum.count]{
+            yearNumbers.append(String(ids[1...2]))
+            uniqueValues = Array(Set(yearNumbers))
         }
+        finalYears.append(contentsOf: uniqueValues)
+        finalYears = Array(Set(uniqueValues))
+        finalYears.sort()
+        print(finalYears.count)
+        print(finalYears)
+        
+    }
+    
     
     override func viewDidLoad() {
-        
-
         loadDatabaseIDNums()
-           
-      
-        
         tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
@@ -82,8 +78,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
-       // loadDatabaseIDNums()
-       // getYearNumbers()
+        // getYearNumbers()
     }
     func getData()
     {
@@ -144,16 +139,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        loadDatabaseIDNums()
-        var classYears: [String] = []
-        classYears.append(contentsOf: getYearNumbers())
-        print(classYears)
-           let classTitles = ["Class of ", "Class of ", "Class of ", "Class of ", "Entire School"]
-           let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
-           cell.textLabel?.text = "\(classTitles[indexPath.row])"
-           
-           return cell
-           
-       }
-   
+        //        loadDatabaseIDNums()
+        
+        let classTitles = ["Class of ", "Class of ", "Class of ", "Class of ", "Entire School"]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
+        cell.textLabel?.text = "\(classTitles[indexPath.row])"
+        
+        return cell
+        
+    }
+    
 }
