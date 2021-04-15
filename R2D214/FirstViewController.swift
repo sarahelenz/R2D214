@@ -28,6 +28,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var sophomores: [String] = []
     var juniors: [String] = []
     var seniors: [String] = []
+    var studentsByYear: [String] = [[][][][]]
     
     func loadDatabaseIDNums() {
         if check == 1 {
