@@ -60,7 +60,7 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             
         }
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
         sortByCounselor()
         let indexPath = tableview.indexPathForSelectedRow
         let selectedRow = indexPath?.row

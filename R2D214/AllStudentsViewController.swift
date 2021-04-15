@@ -21,7 +21,7 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
         let nvc = segue.destination as! messageVC
         let indexPath = tableview.indexPathForSelectedRow
         let selectedRow = indexPath?.row
