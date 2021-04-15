@@ -20,6 +20,17 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
         super.viewDidLoad()
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nvc = segue.destination as! messageVC
+        let indexPath = tableview.indexPathForSelectedRow
+        let selectedRow = indexPath?.row
+        var oneStudentArr:[String] = []
+        oneStudentArr.append(studentArr[selectedRow!]["IDNumber"]!)
+        nvc.idnum = oneStudentArr
+        
+        
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return studentArr.count
     }
