@@ -131,6 +131,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(messageAlert, animated: true, completion: nil)
     }
     func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+        sortByYears()
         let nvc = segue.destination as! messageVC
         let indexPath = tableView1.indexPathForSelectedRow
         let selectedRow = indexPath?.row
