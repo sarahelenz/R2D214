@@ -44,22 +44,30 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                         self.getYearNumbers()
                     }
                 }
+                DispatchQueue.main.async {
+                    self.tableView1.reloadData()
+                }
             }
         }
+        
     }
     func getYearNumbers() {
         loadDatabaseIDNums()
         print(idnum)
         for ids in idnum[0..<idnum.count]{
-            yearNumbers.append(String(ids[1...2]))
-            uniqueValues = Array(Set(yearNumbers))
-        }
-        finalYears.append(contentsOf: uniqueValues)
-        finalYears = Array(Set(uniqueValues))
-        finalYears.sort()
-        print(finalYears.count)
-        print(finalYears)
         
+         yearNumbers.append(String(ids[1...2]))
+         uniqueValues = Array(Set(yearNumbers))
+            }
+            finalYears.append(contentsOf: uniqueValues)
+       
+            finalYears = Array(Set(uniqueValues))
+            finalYears.sort()
+        finalYears.append("Entire School")
+            print(finalYears)
+            print(finalYears.count)
+        
+       
     }
     
     
@@ -78,7 +86,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
-        // getYearNumbers()
     }
     func getData()
     {
@@ -102,7 +109,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let lastNameDictionary = dictionary["Last Name"] as! String
                     
                     self.idnum.append(contentsOf: self.arrayOf.IDNumber)
-                    
+                    DispatchQueue.main.async {
+                        self.tableView1.reloadData()
+                    }
                 }
                 self.tableView1.reloadData()
             }
@@ -110,20 +119,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-    //    func getYearNumbers(){
-    //        print("testyn")
-    //        var yearNumbers: [String] = []
-    //        print("yn",idnum)
-    //        for ids in idnum[0..<idnum.count]{
-    //
-    //
-    //        }
-    //        print(yearNumbers)
-    //
-    //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewCount.count
+        return finalYears.count
     }
     
     
@@ -139,9 +137,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        loadDatabaseIDNums()
-        
-        let classTitles = ["Class of ", "Class of ", "Class of ", "Class of ", "Entire School"]
+              loadDatabaseIDNums()
+        DispatchQueue.main.async {
+            self.tableView1.reloadData()
+        }
+               let classTitles = ["Class of \(finalYears[0])", "Class of \(finalYears[1])", "Class of \(finalYears[2])", "Class of \(finalYears[3])", "Entire School"]
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
         cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
