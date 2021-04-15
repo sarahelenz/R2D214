@@ -17,11 +17,13 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     let counselorArr = ["Bialeschki","Bowen","Deppen","Galarza","Mo","Muck","Waller"]
     var counselorStudents = [[],[],[],[],[],[],[]]
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
-    
+    let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"]]
+    var studentsToSend:[[String]] = [[],[],[],[],[],[],[]]
+    //data segued from Sarah's code, will need to be all students in a grade
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"]] //data segued from Sarah's code, will need to be all students in a grade
+         
         // Do any additional setup after loading the view.
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
@@ -34,18 +36,38 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
         
+//        for student in studentArr{
+//            let stuCounselor = student["Counselor"]
+//            for x in 0...6{
+//                if(counselorArr[x] == stuCounselor){
+//                    counselorStudents[x].append(student)
+//                    break
+//                }
+//            }
+//
+//        }
+    }
+    func sortByCounselor(){
         for student in studentArr{
             let stuCounselor = student["Counselor"]
             for x in 0...6{
                 if(counselorArr[x] == stuCounselor){
                     counselorStudents[x].append(student)
+                    studentsToSend[x].append(student["IDNumber"]!)
                     break
                 }
             }
             
         }
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        sortByCounselor()
+        let indexPath = tableview.indexPathForSelectedRow
+        let selectedRow = indexPath?.row
+        let nvc = segue.destination as! messageVC
+        let selectedStudents:[String] = self.studentsToSend[selectedRow!]
+        nvc.idnum = selectedStudents
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
         cell.textLabel?.text = counselorArr[indexPath.row]
