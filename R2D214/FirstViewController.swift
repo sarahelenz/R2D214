@@ -131,7 +131,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let nvc = segue.destination as! messageVC
-        //nvc.level = 0
         nvc.idnum = self.idnum
         
         
