@@ -28,7 +28,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var sophomores: [String] = []
     var juniors: [String] = []
     var seniors: [String] = []
-    var studentsByYear: [String] = [[][][][]]
+    var studentsByYear: [[String]] = [[],[],[],[]]
     
     func loadDatabaseIDNums() {
         if check == 1 {
@@ -81,6 +81,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         tableView1.allowsSelection = true
         loadDatabaseIDNums()
+        
         tableView1.dataSource = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
@@ -174,6 +175,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
               loadDatabaseIDNums()
+        getYearNumbers()
         DispatchQueue.main.async {
             self.tableView1.reloadData()
         }
@@ -187,6 +189,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     func organizeStudentsByYear(){
         loadDatabaseIDNums()
+        getYearNumbers()
         DispatchQueue.main.async {
             self.tableView1.reloadData()
         }
