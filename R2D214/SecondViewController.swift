@@ -20,7 +20,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad(){
         super.viewDidLoad()
         tableView2.dataSource = self
-          getData()
+        getData()
     }
     public func getData(){
         
@@ -64,15 +64,18 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                     //               let firstNameDictionary = dictionary["First Name"] as! String
                     //             let lastNameDictionary = dictionary["Last Name"] as! String
                 }
-        DispatchQueue.main.async {
-                               print(self.IDNumber.count)
-                           }
-                    self.numOfRows += self.IDNumber.count
+                DispatchQueue.main.async {
+                    self.tableView2.reloadData()
+                    print(self.IDNumber.count)
                 }
+                self.numOfRows += self.IDNumber.count
+            }
             
         }
         
     }
+    
+    
     //
     //func loadDatabaseIDNums() {
     //    var check = 1
@@ -96,18 +99,22 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     //    }
     //}
     //}
-    override func viewDidAppear(_ animated: Bool) {
-        tableView2.reloadData()
-    }
-    
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        tableView2.reloadData()
+    //    }
+    //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            print(self.IDNumber.count)
-            return IDNumber.count
-        
+        print(IDNumber.count)
+       return IDNumber.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        DispatchQueue.main.async {
+            self.tableView2.reloadData()
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")!
         cell.textLabel?.text = "\("hello"[indexPath.row])"
         return cell
     }
 }
+
+

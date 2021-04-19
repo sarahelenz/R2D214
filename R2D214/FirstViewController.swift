@@ -56,19 +56,19 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadDatabaseIDNums()
         print(idnum)
         for ids in idnum[0..<idnum.count]{
+            
+            yearNumbers.append(String(ids[1...2]))
+            uniqueValues = Array(Set(yearNumbers))
+        }
+        finalYears.append(contentsOf: uniqueValues)
         
-         yearNumbers.append(String(ids[1...2]))
-         uniqueValues = Array(Set(yearNumbers))
-            }
-            finalYears.append(contentsOf: uniqueValues)
-       
-            finalYears = Array(Set(uniqueValues))
-            finalYears.sort()
+        finalYears = Array(Set(uniqueValues))
+        finalYears.sort()
         finalYears.append("Entire School")
-            print(finalYears)
-            print(finalYears.count)
+        print(finalYears)
+        print(finalYears.count)
         
-       
+        
     }
     
     
@@ -166,12 +166,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-              loadDatabaseIDNums()
+        loadDatabaseIDNums()
         DispatchQueue.main.async {
             self.tableView1.reloadData()
         }
-               let classTitles = ["Class of \(finalYears[0])", "Class of \(finalYears[1])", "Class of \(finalYears[2])", "Class of \(finalYears[3])", "Entire School"]
-
+        let classTitles = ["Class of \(finalYears[0])", "Class of \(finalYears[1])", "Class of \(finalYears[2])", "Class of \(finalYears[3])", "Entire School"]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
         cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
