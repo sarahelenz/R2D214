@@ -17,11 +17,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     var counter = 000001
     var check = 1
     var IDNumber: [String] = []
-    override func viewDidLoad(){
-        super.viewDidLoad()
-        tableView2.dataSource = self
-        getData()
-    }
+    
     public func getData(){
         
         arrayOf.IDNumber = []
@@ -74,8 +70,12 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         }
         
     }
-    
-    
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        tableView2.dataSource = self
+        getData()
+    }
+
     //
     //func loadDatabaseIDNums() {
     //    var check = 1
@@ -103,6 +103,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     //        tableView2.reloadData()
     //    }
     //
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(IDNumber.count)
        return IDNumber.count
