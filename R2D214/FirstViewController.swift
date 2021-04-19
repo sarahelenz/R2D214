@@ -23,7 +23,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var finalYears: [String] = []
     var yearNumbers: [String] = []
     var uniqueValues: [String] = []
-    var studentsByYear:[[String]] = [[],[],[],[]]
+    var studentsByYear: [[String]] = [[],[],[],[]]
     
     func loadDatabaseIDNums() {
         if check == 1 {
@@ -72,14 +72,16 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
+    
     override func viewDidLoad() {
         tableView1.allowsSelection = true
         loadDatabaseIDNums()
+        
         tableView1.dataSource = self
+        tableView1.delegate = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
-            let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
-            self.navigationController?.pushViewController(messageVCC, animated: true)
+            self.performSegue(withIdentifier: "segueToMessage1", sender: self)
         }
         
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
@@ -112,6 +114,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let lastNameDictionary = dictionary["Last Name"] as! String
                     
                     self.idnum.append(contentsOf: self.arrayOf.IDNumber)
+//                   self.fullNames.append("\(self.arrayOf.firstName)" + " " + "\(self.arrayOf.lastName)")
                     DispatchQueue.main.async {
                         self.tableView1.reloadData()
                     }
@@ -147,6 +150,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func sortByYears(){
+        DispatchQueue.main.async {
+            self.tableView1.reloadData()
+        }
         for id in idnum{
             let stuYear = id[1...2]
             for year in 0...3{
@@ -156,7 +162,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             
         }
-        
     }
     func prepare(for segue: UIStoryboardSegue, sender: UIButton) {
         sortByYears()
@@ -178,5 +183,5 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
         
     }
-    
+   
 }
