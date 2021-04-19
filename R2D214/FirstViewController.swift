@@ -76,6 +76,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView1.allowsSelection = true
         loadDatabaseIDNums()
         tableView1.dataSource = self
+        tableView1.delegate = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)

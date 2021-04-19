@@ -17,6 +17,7 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"],["IDNumber":"621007","Counselor":"Deppen","First Name":"Bob","Last Name":"Anderson"]]
     override func viewDidLoad() {
         tableview.dataSource = self
+        tableview.delegate = self
         super.viewDidLoad()
         
     }
