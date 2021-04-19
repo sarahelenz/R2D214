@@ -23,7 +23,8 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         
+        tableview.delegate = self
+        tableview.dataSource = self
         // Do any additional setup after loading the view.
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
             let messageVCC = messageVC(nibName: "messageVC", bundle: nil)

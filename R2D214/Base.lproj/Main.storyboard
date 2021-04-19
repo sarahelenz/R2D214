@@ -61,7 +61,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Send a Message"/>
                                 <connections>
-                                    <segue destination="4ti-Jt-UeP" kind="show" id="lEc-Yt-vGT"/>
+                                    <segue destination="4ti-Jt-UeP" kind="show" identifier="segueToMessage1" id="lEc-Yt-vGT"/>
                                 </connections>
                             </button>
                         </barButtonItem>

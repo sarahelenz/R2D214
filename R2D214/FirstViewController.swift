@@ -78,10 +78,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadDatabaseIDNums()
         
         tableView1.dataSource = self
+        tableView1.delegate = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
-            let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
-            self.navigationController?.pushViewController(messageVCC, animated: true)
+            self.performSegue(withIdentifier: "segueToMessage1", sender: self)
         }
         
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
