@@ -218,9 +218,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KOg-h4-fd1">
                                 <rect key="frame" x="0.0" y="0.0" width="810" height="1080"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="K0l-zr-DPe">
+                                    <rect key="frame" x="0.0" y="0.0" width="810" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vkF-we-V0d">
-                                        <rect key="frame" x="0.0" y="28" width="810" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="72" width="810" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vkF-we-V0d" id="MMd-1w-63h">
                                             <rect key="frame" x="0.0" y="0.0" width="810" height="43.5"/>
@@ -240,6 +245,7 @@
                         <viewLayoutGuide key="safeArea" id="uQJ-Ux-Xku"/>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="K0l-zr-DPe" id="TK1-z0-FM2"/>
                         <outlet property="tableview" destination="KOg-h4-fd1" id="bpb-DD-uhN"/>
                     </connections>
                 </viewController>

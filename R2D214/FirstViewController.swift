@@ -23,11 +23,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var finalYears: [String] = []
     var yearNumbers: [String] = []
     var uniqueValues: [String] = []
-    var fullNames: [String] = []
-    var freshmen: [String] = []
-    var sophomores: [String] = []
-    var juniors: [String] = []
-    var seniors: [String] = []
     var studentsByYear: [[String]] = [[],[],[],[]]
     
     func loadDatabaseIDNums() {
@@ -119,7 +114,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let lastNameDictionary = dictionary["Last Name"] as! String
                     
                     self.idnum.append(contentsOf: self.arrayOf.IDNumber)
-                    self.fullNames.append("\(self.arrayOf.firstName)" + " " + "\(self.arrayOf.lastName)")
+//                   self.fullNames.append("\(self.arrayOf.firstName)" + " " + "\(self.arrayOf.lastName)")
                     DispatchQueue.main.async {
                         self.tableView1.reloadData()
                     }
@@ -155,6 +150,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func sortByYears(){
+        DispatchQueue.main.async {
+            self.tableView1.reloadData()
+        }
         for id in idnum{
             let stuYear = id[1...2]
             for year in 0...3{
@@ -164,7 +162,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             
         }
-        
     }
     func prepare(for segue: UIStoryboardSegue, sender: UIButton) {
         sortByYears()
@@ -175,7 +172,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
               loadDatabaseIDNums()
-        getYearNumbers()
         DispatchQueue.main.async {
             self.tableView1.reloadData()
         }
@@ -187,15 +183,5 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
         
     }
-    func organizeStudentsByYear(){
-        loadDatabaseIDNums()
-        getYearNumbers()
-        DispatchQueue.main.async {
-            self.tableView1.reloadData()
-        }
-        for students in fullNames{
-            
-        }
-    
-    }
+   
 }
