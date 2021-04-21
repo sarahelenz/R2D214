@@ -20,6 +20,10 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     var idnum:[String] = []
     let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"]]
     var studentsToSend:[[String]] = [[],[],[],[],[],[],[]]
+    var segue1 = UIStoryboardSegue.init(identifier: "toStudent", source: ThirdViewController(), destination: AllStudentsViewController())
+    var segue2 = UIStoryboardSegue.init(identifier: "toMessageVC", source: ThirdViewController(), destination: messageVC())
+    var selectedRow = 0
+    var str1 = ""
     //data segued from Sarah's code, will need to be all students in a grade
     
     override func viewDidLoad() {
@@ -28,12 +32,14 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         tableview.dataSource = self
         // Do any additional setup after loading the view.
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [unowned messageAlert] _ in
-            let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
-            self.navigationController?.pushViewController(messageVCC, animated: true)
-            
+            self.str1 = "yes"
+            //let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
+            //self.navigationController?.pushViewController(messageVCC, animated: true)
+           // prepare(for: segue1, sender: yesAction)
         }
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
-            return
+            self.str1 = "no"
+           // prepare(for: segue2, sender: noAction)
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
@@ -48,6 +54,10 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
 //            }
 //
 //        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRow = indexPath.row
+        present(messageAlert, animated: true, completion: nil)
     }
     func sortByCounselor(){
         for student in studentArr{
@@ -64,11 +74,11 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
         sortByCounselor()
-        let indexPath = tableview.indexPathForSelectedRow
-        let selectedRow = indexPath?.row
-        let nvc = segue.destination as! messageVC
-        let selectedStudents:[String] = self.studentsToSend[selectedRow!]
-        nvc.idnum = selectedStudents
+        let nvc = segue.destination
+        let selectedStudents:[String] = self.studentsToSend[selectedRow]
+        if segue.destination == ThirdViewController() || segue.destination == messageVC(){
+           // nvc.idnum = selectedStudents
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
