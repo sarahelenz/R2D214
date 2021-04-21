@@ -79,6 +79,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         print("first", firstnames)
         return sorted
     }
+    func sortCounselor(couselors: [String]) -> [String] {
+        print(couselors.sorted())
+        return couselors.sorted()
+    }
     func getYearNumbers() {
         loadDatabaseIDNums()
         print(idnum)
@@ -120,6 +124,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(noAction)
         // getYearNumbers()
 //        sortNames(students: ["Joe A", "BoB C", "Jill B", "Test Z", "Test D"])
+//        sortCounselor(couselors: ["name6","name1","name6","gal","smith","gal","smith"])
     }
     
     func getData()
