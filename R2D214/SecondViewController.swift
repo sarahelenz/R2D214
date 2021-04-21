@@ -76,33 +76,33 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         getData()
     }
 
-    //
-    //func loadDatabaseIDNums() {
-    //    var check = 1
-    //    if check == 1 {
-    //        IDNumber = []
-    //        check = 2
-    //    }
-    //    let reference = Database.database().reference()
-    //    reference.observeSingleEvent(of: .value) { (snapshot) in
-    //        for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-    //            let id = dataa.key
-    //            if self.IDNumber.contains(id) {
-    //
-    //            }
-    //            else {
-    //                self.IDNumber.append(id)
-    //                print("id: ",id)
-    //                print(self.IDNumber.count)
-    //            }
-    //        }
-    //    }
-    //}
-    //}
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        tableView2.reloadData()
-    //    }
-    //
+    
+    func loadDatabaseIDNums() {
+        var check = 1
+        if check == 1 {
+            IDNumber = []
+            check = 2
+        }
+        let reference = Database.database().reference()
+        reference.observeSingleEvent(of: .value) { (snapshot) in
+            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+                let id = dataa.key
+                if self.IDNumber.contains(id) {
+    
+                }
+                else {
+                    self.IDNumber.append(id)
+                    print("id: ",id)
+                    print(self.IDNumber.count)
+                }
+            }
+        }
+    }
+    
+        override func viewDidAppear(_ animated: Bool) {
+            tableView2.reloadData()
+        }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(IDNumber.count)
