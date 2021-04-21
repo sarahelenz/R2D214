@@ -47,6 +47,32 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
     }
+    func sortNames(students:[String]) -> [String] {
+        var sorted:[String] = []
+        var firstnames:[String] = []
+        var lastnames:[String] = []
+        var studReverse:[String] = []
+        for student in students {
+            let ind = student.firstIndex(of: " ")
+            let range = student.startIndex ... ind!
+            let end = student.endIndex
+            let endindex = student.index(end, offsetBy: -1)
+            let range2 = ind! ... endindex
+            var student2 = student
+            student2.removeSubrange(range)
+            lastnames.append(student2)
+            var student3 = student
+            student3.removeSubrange(range2)
+            firstnames.append(student3)
+            let sreverse = student2 + " " + student3
+            studReverse.append(sreverse)
+        }
+        sorted = studReverse.sorted { $0 < $1 }
+        print(sorted)
+        print("last", lastnames)
+        print("first", firstnames)
+        return sorted
+    }
     func getYearNumbers() {
         loadDatabaseIDNums()
         print(idnum)
@@ -64,6 +90,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     override func viewDidLoad() {
+        tableView1.allowsSelection = true
+        tableView1.allowsSelectionDuringEditing = true
         loadDatabaseIDNums()
         tableView1.dataSource = self
         super.viewDidLoad()
@@ -79,6 +107,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
         // getYearNumbers()
+//        sortNames(students: ["Joe A", "BoB C", "Jill B", "Test Z", "Test D"])
     }
     func getData()
     {
@@ -129,6 +158,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("TEST")
         present(messageAlert, animated: true, completion: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

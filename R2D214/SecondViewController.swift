@@ -16,6 +16,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     //    var tableViewCount = [1,2,3,4,5]
     var counter = 000001
     var check = 1
+    var idsel = ""
     var IDNumber: [String] = []
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -107,4 +108,8 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.textLabel?.text = "\("hello"[indexPath.row])"
     return cell
 }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        idsel = IDNumber[indexPath.row]
+        print(idsel)
+    }
 }
