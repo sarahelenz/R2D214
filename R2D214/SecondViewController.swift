@@ -54,19 +54,22 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                     print(self.IDNumber.count)
                     print(self.arrayOf.IDNumber)
                     let dictionary = data.value as! NSDictionary
+                    
+                    self.numOfRows = dictionary.count
+                    
                     print(self.IDNumber)
-                    //                   let CounselorDictionary = dictionary["counselor"] as! String
-                    //                 let EmailDictionary = dictionary["E-mail"] as! String
-                    //               let firstNameDictionary = dictionary["First Name"] as! String
-                    //             let lastNameDictionary = dictionary["Last Name"] as! String
+                    let CounselorDictionary = dictionary["counselor"] as! String
+                    let EmailDictionary = dictionary["E-mail"] as! String
+                    let firstNameDictionary = dictionary["First Name"] as! String
+                    let lastNameDictionary = dictionary["Last Name"] as! String
                 }
                 DispatchQueue.main.async {
                     self.tableView2.reloadData()
                     print(self.IDNumber.count)
                 }
-                self.numOfRows += self.IDNumber.count
+                
+                //             self.numOfRows == dictionary.count
             }
-            
         }
         
     }
@@ -75,7 +78,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         tableView2.dataSource = self
         getData()
     }
-
+    
     
     func loadDatabaseIDNums() {
         var check = 1
@@ -88,7 +91,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
             for dataa in snapshot.children.allObjects as! [DataSnapshot] {
                 let id = dataa.key
                 if self.IDNumber.contains(id) {
-    
+                    
                 }
                 else {
                     self.IDNumber.append(id)
@@ -99,21 +102,21 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
-        override func viewDidAppear(_ animated: Bool) {
-            tableView2.reloadData()
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        tableView2.reloadData()
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(IDNumber.count)
-       return IDNumber.count
+        print(numOfRows)
+        return IDNumber.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         DispatchQueue.main.async {
             self.tableView2.reloadData()
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")!
-        cell.textLabel?.text = "\("hello"[indexPath.row])"
+        cell.textLabel?.text = "\(IDNumber[indexPath.row])"
         return cell
     }
 }
