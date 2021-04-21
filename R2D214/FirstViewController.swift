@@ -23,7 +23,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var finalYears: [String] = []
     var yearNumbers: [String] = []
     var uniqueValues: [String] = []
-    
+    var studentsByYear: [[String]] = [[],[],[],[]]
+    var selectedRow:Int = 0
+
     func loadDatabaseIDNums() {
         if check == 1 {
             idnum = []
@@ -44,8 +46,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                         self.getYearNumbers()
                     }
                 }
+                DispatchQueue.main.async {
+                    self.tableView1.reloadData()
+                }
             }
         }
+        
     }
     func sortNames(students:[String]) -> [String] {
         var sorted:[String] = []
@@ -77,27 +83,33 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadDatabaseIDNums()
         print(idnum)
         for ids in idnum[0..<idnum.count]{
+            
             yearNumbers.append(String(ids[1...2]))
             uniqueValues = Array(Set(yearNumbers))
         }
         finalYears.append(contentsOf: uniqueValues)
+        
         finalYears = Array(Set(uniqueValues))
         finalYears.sort()
-        print(finalYears.count)
+        finalYears.append("Entire School")
         print(finalYears)
+        print(finalYears.count)
+        
         
     }
+    
     
     
     override func viewDidLoad() {
         tableView1.allowsSelection = true
         tableView1.allowsSelectionDuringEditing = true
         loadDatabaseIDNums()
+        
         tableView1.dataSource = self
+        tableView1.delegate = self
         super.viewDidLoad()
         let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
-            let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
-            self.navigationController?.pushViewController(messageVCC, animated: true)
+            self.performSegue(withIdentifier: "segueToMessage1", sender: self)
         }
         
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
@@ -109,6 +121,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         // getYearNumbers()
 //        sortNames(students: ["Joe A", "BoB C", "Jill B", "Test Z", "Test D"])
     }
+    
     func getData()
     {
         arrayOf.IDNumber = []
@@ -131,7 +144,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let lastNameDictionary = dictionary["Last Name"] as! String
                     
                     self.idnum.append(contentsOf: self.arrayOf.IDNumber)
-                    
+//                   self.fullNames.append("\(self.arrayOf.firstName)" + " " + "\(self.arrayOf.lastName)")
+                    DispatchQueue.main.async {
+                        self.tableView1.reloadData()
+                    }
                 }
                 self.tableView1.reloadData()
             }
@@ -139,44 +155,64 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-    //    func getYearNumbers(){
-    //        print("testyn")
-    //        var yearNumbers: [String] = []
-    //        print("yn",idnum)
-    //        for ids in idnum[0..<idnum.count]{
-    //
-    //
-    //        }
-    //        print(yearNumbers)
-    //
-    //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewCount.count
+        return finalYears.count
     }
     
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("TEST")
+        print("yes you did select the row")
+        let indexPath = tableView1.indexPathForSelectedRow
+        selectedRow = indexPath!.row
+        print(selectedRow)
         present(messageAlert, animated: true, completion: nil)
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func prepare(for segue: UIStoryboardSegue, sender: UIAlertController) {
+        sortByYears()
+        let nvc = segue.destination as! ThirdViewController
+        if selectedRow == 4{
+            nvc.idnum = self.idnum
+        }
+        else{
+            nvc.idnum = self.studentsByYear[selectedRow]
+        }
+    }
+    
+    func sortByYears(){
+        DispatchQueue.main.async {
+            self.tableView1.reloadData()
+        }
+        for id in idnum{
+            let stuYear = id[1...2]
+            for year in 0...3{
+                if stuYear == yearNumbers[year]{
+                    studentsByYear[year].append(id)
+                }
+            }
+            
+        }
+    }
+    func prepare(for segue: UIStoryboardSegue, sender: UIButton) {
+        sortByYears()
         let nvc = segue.destination as! messageVC
-        //nvc.level = 0
         nvc.idnum = self.idnum
         
         
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        loadDatabaseIDNums()
+        loadDatabaseIDNums()
+        DispatchQueue.main.async {
+            self.tableView1.reloadData()
+        }
+        let classTitles = ["Class of \(finalYears[0])", "Class of \(finalYears[1])", "Class of \(finalYears[2])", "Class of \(finalYears[3])", "Entire School"]
         
-        let classTitles = ["Class of ", "Class of ", "Class of ", "Class of ", "Entire School"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
         cell.textLabel?.text = "\(classTitles[indexPath.row])"
         
         return cell
         
     }
-    
+   
 }
