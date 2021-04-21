@@ -17,11 +17,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     var counter = 000001
     var check = 1
     var IDNumber: [String] = []
-    override func viewDidLoad(){
-        super.viewDidLoad()
-        tableView2.dataSource = self
-          getData()
-    }
+    
     public func getData(){
         
         arrayOf.IDNumber = []
@@ -64,50 +60,62 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                     //               let firstNameDictionary = dictionary["First Name"] as! String
                     //             let lastNameDictionary = dictionary["Last Name"] as! String
                 }
-        DispatchQueue.main.async {
-                               print(self.IDNumber.count)
-                           }
-                    self.numOfRows += self.IDNumber.count
+                DispatchQueue.main.async {
+                    self.tableView2.reloadData()
+                    print(self.IDNumber.count)
                 }
+                self.numOfRows += self.IDNumber.count
+            }
             
         }
         
     }
-    //
-    //func loadDatabaseIDNums() {
-    //    var check = 1
-    //    if check == 1 {
-    //        IDNumber = []
-    //        check = 2
-    //    }
-    //    let reference = Database.database().reference()
-    //    reference.observeSingleEvent(of: .value) { (snapshot) in
-    //        for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-    //            let id = dataa.key
-    //            if self.IDNumber.contains(id) {
-    //
-    //            }
-    //            else {
-    //                self.IDNumber.append(id)
-    //                print("id: ",id)
-    //                print(self.IDNumber.count)
-    //            }
-    //        }
-    //    }
-    //}
-    //}
-    override func viewDidAppear(_ animated: Bool) {
-        tableView2.reloadData()
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        tableView2.dataSource = self
+        getData()
+    }
+
+    
+    func loadDatabaseIDNums() {
+        var check = 1
+        if check == 1 {
+            IDNumber = []
+            check = 2
+        }
+        let reference = Database.database().reference()
+        reference.observeSingleEvent(of: .value) { (snapshot) in
+            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+                let id = dataa.key
+                if self.IDNumber.contains(id) {
+    
+                }
+                else {
+                    self.IDNumber.append(id)
+                    print("id: ",id)
+                    print(self.IDNumber.count)
+                }
+            }
+        }
     }
     
+        override func viewDidAppear(_ animated: Bool) {
+            tableView2.reloadData()
+        }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            print(self.IDNumber.count)
-            return IDNumber.count
-        
+        print(IDNumber.count)
+       return IDNumber.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        DispatchQueue.main.async {
+            self.tableView2.reloadData()
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")!
         cell.textLabel?.text = "\("hello"[indexPath.row])"
         return cell
     }
 }
+
+
