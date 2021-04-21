@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableViewDataSource {
+class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableview:UITableView!
@@ -26,15 +26,16 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
         tableview.delegate = self
         super.viewDidLoad()
         self.listofStudents()
+        self.searchBar.showsCancelButton = true
     }
     func listofStudents() {
-           for code in NSLocale.isoCountryCodes as [String] {
-               let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
-               let name = NSLocale(localeIdentifier: "en").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Student not found for code: \(code)"
-               studentList.append(name)
-               tableview.reloadData()
-           }
-       }
+        for code in NSLocale.isoCountryCodes as [String] {
+            let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+            let name = NSLocale(localeIdentifier: "en").displayName(forKey: NSLocale.Key.identifier, value: id) ?? "Student not found for code: \(code)"
+            studentList.append(name)
+            tableview.reloadData()
+        }
+    }
     func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
         let nvc = segue.destination as! messageVC
         let indexPath = tableview.indexPathForSelectedRow
@@ -46,11 +47,11 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       if searching {
-                   return searchedStudent.count
-               } else {
-                   return studentArr.count
-               }
+        if searching {
+            return searchedStudent.count
+        } else {
+            return studentArr.count
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
@@ -59,23 +60,35 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
         studentList.append(name)
         cell.textLabel?.text = name
         if searching {
-               cell.textLabel?.text = searchedStudent[indexPath.row]
-           } else {
+            cell.textLabel?.text = searchedStudent[indexPath.row]
+        } else {
             cell.textLabel?.text = name
-           }
-           return cell
-       }
-  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    searchedStudent = studentList.filter { $0.lowercased().prefix(searchText.count) == searchText.lowercased() }
-    
-      searching = true
-    tableview.reloadData()
+        }
+        return cell
     }
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searching = false
-        searchBar.text = ""
-        tableview.reloadData()
-        
-    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if searching {
+            let selectedStudent = searchedStudent[indexPath.row]
+            print(selectedStudent)
+        } else {
+            let selectedStudent = studentList[indexPath.row]
+            print(selectedStudent)
+        }
+        self.searchBar.searchTextField.endEditing(true)
     }
 
+    internal func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    searchedStudent = studentList.filter { $0.lowercased().prefix(searchText.count) == searchText.lowercased() }
+    
+    searching = true
+    tableview.reloadData()
+}
+func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    searching = false
+    searchBar.text = ""
+    tableview.reloadData()
+    
+}
+
+
+}

@@ -17,6 +17,7 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     let counselorArr = ["Bialeschki","Bowen","Deppen","Galarza","Mo","Muck","Waller"]
     var counselorStudents = [[],[],[],[],[],[],[]]
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
+    var idnum:[String] = []
     let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"]]
     var studentsToSend:[[String]] = [[],[],[],[],[],[],[]]
     //data segued from Sarah's code, will need to be all students in a grade
