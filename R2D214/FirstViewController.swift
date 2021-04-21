@@ -41,8 +41,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     }
                     else {
                         self.idnum.append(id)
-                        print("id: ",id)
-                        print(self.idnum)
+//                        print("id: ",id)
+//                        print(self.idnum)
                         self.getYearNumbers()
                     }
                 }
@@ -74,18 +74,18 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             studReverse.append(sreverse)
         }
         sorted = studReverse.sorted { $0 < $1 }
-        print(sorted)
-        print("last", lastnames)
-        print("first", firstnames)
+//        print(sorted)
+//        print("last", lastnames)
+//        print("first", firstnames)
         return sorted
     }
     func sortCounselor(couselors: [String]) -> [String] {
-        print(couselors.sorted())
+//        print(couselors.sorted())
         return couselors.sorted()
     }
     func getYearNumbers() {
         loadDatabaseIDNums()
-        print(idnum)
+//        print(idnum)
         for ids in idnum[0..<idnum.count]{
             
             yearNumbers.append(String(ids[1...2]))
