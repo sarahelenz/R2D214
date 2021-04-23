@@ -45,8 +45,8 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             self.str1 = "no"
             //self.prepare(for: self.segue2, sender: self.messageAlert)
             //self.performSegue(withIdentifier: "toMessageVC", sender: self.messageAlert.actions[1])
-             let allStudents = self.storyboard!.instantiateViewController(identifier: "AllStudentsViewController") as! AllStudentsViewController
-             self.present(allStudents, animated:true, completion: nil)
+            let allStudents = self.storyboard!.instantiateViewController(identifier: "AllStudentsViewController") as! AllStudentsViewController
+            self.present(allStudents, animated:true, completion: nil)
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
