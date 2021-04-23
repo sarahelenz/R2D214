@@ -35,11 +35,13 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             self.str1 = "yes"
             //let messageVCC = messageVC(nibName: "messageVC", bundle: nil)
             //self.navigationController?.pushViewController(messageVCC, animated: true)
-           // prepare(for: segue1, sender: yesAction)
+            self.prepare(for: self.segue1, sender: self.messageAlert)
+            self.performSegue(withIdentifier: "toStudent", sender: self.messageAlert)
         }
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
             self.str1 = "no"
-           // prepare(for: segue2, sender: noAction)
+            self.prepare(for: self.segue2, sender: self.messageAlert)
+            self.performSegue(withIdentifier: "toMessageVC", sender: self.messageAlert)
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
@@ -72,13 +74,19 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             
         }
     }
-    func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+    func prepare(for segue: UIStoryboardSegue, sender: UIAlertController) {
         sortByCounselor()
-        let nvc = segue.destination
-        let selectedStudents:[String] = self.studentsToSend[selectedRow]
-        if segue.destination == ThirdViewController() || segue.destination == messageVC(){
-           // nvc.idnum = selectedStudents
+        if segue.destination == ThirdViewController(){
+            let nvc = segue.destination as! ThirdViewController
+            let selectedStudents:[String] = self.studentsToSend[selectedRow]
+            nvc.idnum = selectedStudents
         }
+        else{
+            let nvc = segue.destination as! messageVC
+            let selectedStudents:[String] = self.studentsToSend[selectedRow]
+            nvc.idnum = selectedStudents
+        }
+        
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
