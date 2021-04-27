@@ -87,28 +87,28 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-    func loadDatabaseIDNums() {
-        var check = 1
-        if check == 1 {
-            IDNumber = []
-            check = 2
-        }
-        let reference = Database.database().reference()
-        reference.observeSingleEvent(of: .value) { (snapshot) in
-            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-                let id = dataa.key
-                if self.IDNumber.contains(id) {
-                    
-                }
-                else {
-                    self.IDNumber.append(id)
-                    print("id: ",id)
-                    print(self.IDNumber.count)
-                }
-            }
-        }
-    }
-    
+//    func loadDatabaseIDNums() {
+//        var check = 1
+//        if check == 1 {
+//            IDNumber = []
+//            check = 2
+//        }
+//        let reference = Database.database().reference()
+//        reference.observeSingleEvent(of: .value) { (snapshot) in
+//            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+//                let id = dataa.key
+//                if self.IDNumber.contains(id) {
+//
+//                }
+//                else {
+//                    self.IDNumber.append(id)
+//                    print("id: ",id)
+//                    print(self.IDNumber.count)
+//                }
+//            }
+//        }
+//    }
+//
     override func viewDidAppear(_ animated: Bool) {
         tableView2.reloadData()
     }
@@ -126,12 +126,4 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         cell.textLabel?.text = "\(IDNumber[indexPath.row])"
         return cell
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nvc = segue.destination as! FirstViewController
-        let classYears = nvc.finalYears
-        let counselors = nvc.arrayOf.counselor
-        yearNumbers.append(contentsOf: classYears)
-    }
 }
-
-
