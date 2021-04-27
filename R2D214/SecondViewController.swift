@@ -17,6 +17,8 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     var counter = 000001
     var check = 1
     var IDNumber: [String] = []
+    var firstNameDictionary: [String] = []
+    var lastNameDictionary: [String] = []
     
     public func getData(){
         
@@ -46,6 +48,9 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
             for data in snapshot.children.allObjects as! [DataSnapshot] {
                 let ID = data.key
                 if self.IDNumber.contains(ID) {
+                    let dictionary = data.value as! NSDictionary
+                    self.firstNameDictionary = [dictionary["First Name"] as! String]
+                    self.lastNameDictionary = [dictionary["Last Name"] as! String]
                     
                 }
                 else {
@@ -58,10 +63,10 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                     self.numOfRows = dictionary.count
                     
                     print(self.IDNumber)
-                    let CounselorDictionary = dictionary["counselor"] as! String
-                    let EmailDictionary = dictionary["E-mail"] as! String
-                    let firstNameDictionary = dictionary["First Name"] as! String
-                    let lastNameDictionary = dictionary["Last Name"] as! String
+//                    let CounselorDictionary = dictionary["counselor"] as! String
+//                    let EmailDictionary = dictionary["E-mail"] as! String
+                 //   self.firstNameDictionary = [dictionary["First Name"] as! String]
+                 //   self.lastNameDictionary = [dictionary["Last Name"] as! String]
                 }
                 DispatchQueue.main.async {
                     self.tableView2.reloadData()
