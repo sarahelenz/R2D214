@@ -16,6 +16,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     var numOfRows = 0
     var counter = 000001
     var check = 1
+    var idsel = ""
     var IDNumber: [String] = []
     var firstNameDictionary: [String] = []
     var lastNameDictionary: [String] = []
@@ -82,6 +83,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         tableView2.dataSource = self
         getData()
+        
     }
     
     
@@ -123,6 +125,12 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")!
         cell.textLabel?.text = "\(IDNumber[indexPath.row])"
         return cell
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nvc = segue.destination as! FirstViewController
+        let classYears = nvc.finalYears
+        let counselors = nvc.arrayOf.counselor
+        yearNumbers.append(contentsOf: classYears)
     }
 }
 

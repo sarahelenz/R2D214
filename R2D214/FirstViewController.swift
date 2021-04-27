@@ -41,8 +41,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     }
                     else {
                         self.idnum.append(id)
-                        print("id: ",id)
-                        print(self.idnum)
+//                        print("id: ",id)
+//                        print(self.idnum)
                         self.getYearNumbers()
                     }
                 }
@@ -53,9 +53,39 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
     }
+    func sortNames(students:[String]) -> [String] {
+        var sorted:[String] = []
+        var firstnames:[String] = []
+        var lastnames:[String] = []
+        var studReverse:[String] = []
+        for student in students {
+            let ind = student.firstIndex(of: " ")
+            let range = student.startIndex ... ind!
+            let end = student.endIndex
+            let endindex = student.index(end, offsetBy: -1)
+            let range2 = ind! ... endindex
+            var student2 = student
+            student2.removeSubrange(range)
+            lastnames.append(student2)
+            var student3 = student
+            student3.removeSubrange(range2)
+            firstnames.append(student3)
+            let sreverse = student2 + " " + student3
+            studReverse.append(sreverse)
+        }
+        sorted = studReverse.sorted { $0 < $1 }
+//        print(sorted)
+//        print("last", lastnames)
+//        print("first", firstnames)
+        return sorted
+    }
+    func sortCounselor(couselors: [String]) -> [String] {
+//        print(couselors.sorted())
+        return couselors.sorted()
+    }
     func getYearNumbers() {
         loadDatabaseIDNums()
-        print(idnum)
+//        print(idnum)
         for ids in idnum[0..<idnum.count]{
             
             yearNumbers.append(String(ids[1...2]))
@@ -76,6 +106,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         tableView1.allowsSelection = true
+        tableView1.allowsSelectionDuringEditing = true
         loadDatabaseIDNums()
         
         tableView1.dataSource = self
@@ -91,6 +122,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
+        // getYearNumbers()
+//        sortNames(students: ["Joe A", "BoB C", "Jill B", "Test Z", "Test D"])
+//        sortCounselor(couselors: ["name6","name1","name6","gal","smith","gal","smith"])
     }
     
     func getData()
