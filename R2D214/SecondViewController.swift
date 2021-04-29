@@ -28,6 +28,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         arrayOf.Email = []
         arrayOf.firstName = []
         arrayOf.lastName = []
+        
         var check = 1
         if check == 1 {
             IDNumber = []
@@ -38,30 +39,16 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         print(reference)
         
         reference.observeSingleEvent(of: .value) { (snapshot) in
-            
-            //            for i in self.counter...999999 {
-            //                snapshot.childSnapshot(forPath: String(i))
-            //                self.arrayOf.IDNumber.append(String(i))
-            //                var secondID = snapshot.childSnapshot(forPath: "621092")
-            //                var thirdID = snapshot.childSnapshot(forPath: "623182")
-            //                self.counter += 000001
-            //            }
             for data in snapshot.children.allObjects as! [DataSnapshot] {
                 let ID = data.key
                 if self.IDNumber.contains(ID) {
                     let dictionary = data.value as! NSDictionary
-                    self.firstNameDictionary = [dictionary["First Name"] as! String]
-                    self.lastNameDictionary = [dictionary["Last Name"] as! String]
-                    
                 }
                 else {
                     self.IDNumber.append(ID)
                     print("id: ",ID)
                     print(self.IDNumber.count)
                     print(self.arrayOf.IDNumber)
-                    let dictionary = data.value as! NSDictionary
-                    
-                    self.numOfRows = dictionary.count
                     
                     print(self.IDNumber)
 //                    let CounselorDictionary = dictionary["counselor"] as! String
@@ -71,6 +58,10 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                 }
                 DispatchQueue.main.async {
                     self.tableView2.reloadData()
+                    let dictionary = data.value as! NSDictionary
+                    self.firstNameDictionary = [dictionary["First Name"] as! String]
+                    self.lastNameDictionary = [dictionary["Last Name"] as! String]
+                    print(self.firstNameDictionary)
                     print(self.IDNumber.count)
                 }
                 
@@ -87,28 +78,28 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-    func loadDatabaseIDNums() {
-        var check = 1
-        if check == 1 {
-            IDNumber = []
-            check = 2
-        }
-        let reference = Database.database().reference()
-        reference.observeSingleEvent(of: .value) { (snapshot) in
-            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-                let id = dataa.key
-                if self.IDNumber.contains(id) {
-                    
-                }
-                else {
-                    self.IDNumber.append(id)
-                    print("id: ",id)
-                    print(self.IDNumber.count)
-                }
-            }
-        }
-    }
-    
+//    func loadDatabaseIDNums() {
+//        var check = 1
+//        if check == 1 {
+//            IDNumber = []
+//            check = 2
+//        }
+//        let reference = Database.database().reference()
+//        reference.observeSingleEvent(of: .value) { (snapshot) in
+//            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+//                let id = dataa.key
+//                if self.IDNumber.contains(id) {
+//
+//                }
+//                else {
+//                    self.IDNumber.append(id)
+//                    print("id: ",id)
+//                    print(self.IDNumber.count)
+//                }
+//            }
+//        }
+//    }
+//
     override func viewDidAppear(_ animated: Bool) {
         tableView2.reloadData()
     }
@@ -116,14 +107,15 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(numOfRows)
-        return IDNumber.count
+        return firstNameDictionary.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         DispatchQueue.main.async {
             self.tableView2.reloadData()
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")!
-        cell.textLabel?.text = "\(IDNumber[indexPath.row])"
+        cell.textLabel?.text = "\(firstNameDictionary[indexPath.row])"
+        cell.detailTextLabel?.text = "\(lastNameDictionary[indexPath.row])"
         return cell
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -133,5 +125,3 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         //yearNumbers.append(contentsOf: classYears)
     }
 }
-
-
