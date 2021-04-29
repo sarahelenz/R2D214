@@ -117,8 +117,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
-            let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
-            self.navigationController?.pushViewController(thirdvc, animated: true)
+//            let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
+//            self.navigationController?.pushViewController(thirdvc, animated: true)
+            let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
+            self.present(thirdvc, animated:true, completion: nil)
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)

@@ -130,7 +130,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         let nvc = segue.destination as! FirstViewController
         let classYears = nvc.finalYears
         let counselors = nvc.arrayOf.counselor
-        yearNumbers.append(contentsOf: classYears)
+        //yearNumbers.append(contentsOf: classYears)
     }
 }
 

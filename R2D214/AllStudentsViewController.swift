@@ -75,6 +75,8 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
             print(selectedStudent)
         }
         self.searchBar.searchTextField.endEditing(true)
+        let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
+        self.present(message, animated:true, completion: nil)
     }
 
     internal func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
