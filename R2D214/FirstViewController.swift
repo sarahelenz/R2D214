@@ -120,6 +120,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
 //            let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
 //            self.navigationController?.pushViewController(thirdvc, animated: true)
             let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
+            //add specifications for different rows
+            thirdvc.idnum = self.idnum
             self.present(thirdvc, animated:true, completion: nil)
         }
         messageAlert.addAction(yesAction)
