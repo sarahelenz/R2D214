@@ -97,4 +97,10 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         cell.detailTextLabel?.text = "\(lastNameDictionary[indexPath.row])"
         return cell
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nvc = segue.destination as! FirstViewController
+        let classYears = nvc.finalYears
+        let counselors = nvc.arrayOf.counselor
+        //yearNumbers.append(contentsOf: classYears)
+    }
 }
