@@ -12,6 +12,7 @@ import Firebase
 class SecondViewController:UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var tableView2: UITableView!
+    let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     let arrayOf = ArrayOf()
     var numOfRows = 0
     var counter = 000001
@@ -70,12 +71,31 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         }
         
     }
-    override func viewDidLoad(){
-        super.viewDidLoad()
-        tableView2.dataSource = self
-        getData()
-        
-    }
+      override func viewDidLoad() {
+            tableView2.allowsSelection = true
+            tableView2.allowsSelectionDuringEditing = true
+            getData()
+            
+            tableView2.dataSource = self
+            tableView2.delegate = self
+            super.viewDidLoad()
+            let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
+                self.performSegue(withIdentifier: "segueToMessage1", sender: self)
+            }
+            
+            let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
+                let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
+                self.navigationController?.pushViewController(thirdvc, animated: true)
+            }
+            messageAlert.addAction(yesAction)
+            messageAlert.addAction(noAction)
+        }
+//    override func viewDidLoad(){
+//        super.viewDidLoad()
+//        tableView2.dataSource = self
+//        getData()
+//
+//    }
     
     
     
@@ -85,7 +105,6 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(numOfRows)
         return firstNameDictionary.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
