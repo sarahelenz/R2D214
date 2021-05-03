@@ -42,7 +42,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
             for data in snapshot.children.allObjects as! [DataSnapshot] {
                 let ID = data.key
                 if self.IDNumber.contains(ID) {
-                    let dictionary = data.value as! NSDictionary
+                    //     let dictionary = data.value as! NSDictionary
                 }
                 else {
                     self.IDNumber.append(ID)
@@ -51,21 +51,21 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                     print(self.arrayOf.IDNumber)
                     
                     print(self.IDNumber)
-//                    let CounselorDictionary = dictionary["counselor"] as! String
-//                    let EmailDictionary = dictionary["E-mail"] as! String
-                 //   self.firstNameDictionary = [dictionary["First Name"] as! String]
-                 //   self.lastNameDictionary = [dictionary["Last Name"] as! String]
+                    
+                    let dictionary = data.value as! NSDictionary
+                    var firstName = dictionary["First Name"] as! String
+                    var lastName = dictionary["Last Name"] as! String
+                    self.firstNameDictionary.append(firstName)
+                    self.lastNameDictionary.append(lastName)
                 }
                 DispatchQueue.main.async {
                     self.tableView2.reloadData()
-                    let dictionary = data.value as! NSDictionary
-                    self.firstNameDictionary = [dictionary["First Name"] as! String]
-                    self.lastNameDictionary = [dictionary["Last Name"] as! String]
+                    
                     print(self.firstNameDictionary)
                     print(self.IDNumber.count)
+                    
                 }
                 
-                //             self.numOfRows == dictionary.count
             }
         }
         
@@ -78,28 +78,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-//    func loadDatabaseIDNums() {
-//        var check = 1
-//        if check == 1 {
-//            IDNumber = []
-//            check = 2
-//        }
-//        let reference = Database.database().reference()
-//        reference.observeSingleEvent(of: .value) { (snapshot) in
-//            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-//                let id = dataa.key
-//                if self.IDNumber.contains(id) {
-//
-//                }
-//                else {
-//                    self.IDNumber.append(id)
-//                    print("id: ",id)
-//                    print(self.IDNumber.count)
-//                }
-//            }
-//        }
-//    }
-//
+    
     override func viewDidAppear(_ animated: Bool) {
         tableView2.reloadData()
     }
