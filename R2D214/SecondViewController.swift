@@ -12,6 +12,7 @@ import Firebase
 class SecondViewController:UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var tableView2: UITableView!
+    let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     let arrayOf = ArrayOf()
     var numOfRows = 0
     var counter = 000001
@@ -42,7 +43,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
             for data in snapshot.children.allObjects as! [DataSnapshot] {
                 let ID = data.key
                 if self.IDNumber.contains(ID) {
-                    let dictionary = data.value as! NSDictionary
+                    //     let dictionary = data.value as! NSDictionary
                 }
                 else {
                     self.IDNumber.append(ID)
@@ -51,62 +52,59 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                     print(self.arrayOf.IDNumber)
                     
                     print(self.IDNumber)
-//                    let CounselorDictionary = dictionary["counselor"] as! String
-//                    let EmailDictionary = dictionary["E-mail"] as! String
-                 //   self.firstNameDictionary = [dictionary["First Name"] as! String]
-                 //   self.lastNameDictionary = [dictionary["Last Name"] as! String]
+                    
+                    let dictionary = data.value as! NSDictionary
+                    var firstName = dictionary["First Name"] as! String
+                    var lastName = dictionary["Last Name"] as! String
+                    self.firstNameDictionary.append(firstName)
+                    self.lastNameDictionary.append(lastName)
                 }
                 DispatchQueue.main.async {
                     self.tableView2.reloadData()
-                    let dictionary = data.value as! NSDictionary
-                    self.firstNameDictionary = [dictionary["First Name"] as! String]
-                    self.lastNameDictionary = [dictionary["Last Name"] as! String]
+                    
                     print(self.firstNameDictionary)
                     print(self.IDNumber.count)
+                    
                 }
                 
-                //             self.numOfRows == dictionary.count
             }
         }
         
     }
-    override func viewDidLoad(){
-        super.viewDidLoad()
-        tableView2.dataSource = self
-        getData()
-        
-    }
-    
-    
-//    func loadDatabaseIDNums() {
-//        var check = 1
-//        if check == 1 {
-//            IDNumber = []
-//            check = 2
-//        }
-//        let reference = Database.database().reference()
-//        reference.observeSingleEvent(of: .value) { (snapshot) in
-//            for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-//                let id = dataa.key
-//                if self.IDNumber.contains(id) {
+      override func viewDidLoad() {
+            tableView2.allowsSelection = true
+            tableView2.allowsSelectionDuringEditing = true
+            getData()
+            
+            tableView2.dataSource = self
+            tableView2.delegate = self
+            super.viewDidLoad()
+            let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
+                self.performSegue(withIdentifier: "segueToMessage1", sender: self)
+            }
+            
+            let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
+                let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
+                self.navigationController?.pushViewController(thirdvc, animated: true)
+            }
+            messageAlert.addAction(yesAction)
+            messageAlert.addAction(noAction)
+        }
+//    override func viewDidLoad(){
+//        super.viewDidLoad()
+//        tableView2.dataSource = self
+//        getData()
 //
-//                }
-//                else {
-//                    self.IDNumber.append(id)
-//                    print("id: ",id)
-//                    print(self.IDNumber.count)
-//                }
-//            }
-//        }
 //    }
-//
+    
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         tableView2.reloadData()
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(numOfRows)
         return firstNameDictionary.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
