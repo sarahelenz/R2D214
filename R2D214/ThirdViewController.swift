@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
@@ -18,7 +19,7 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     var counselorStudents = [[],[],[],[],[],[],[]]
     let messageAlert = UIAlertController(title: "", message: "Is this the group you would like to send a message to?", preferredStyle: .alert)
     var idnum:[String] = []
-    let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"]]
+    var studentArr:[String:String] = [:]
     var studentsToSend:[[String]] = [[],[],[],[],[],[],[]]
     //var segue1 = UIStoryboardSegue.init(identifier: "toStudent", source: ThirdViewController(), destination: AllStudentsViewController())
     //var segue2 = UIStoryboardSegue.init(identifier: "toMessageVC", source: ThirdViewController(), destination: messageVC())
@@ -46,33 +47,38 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             //self.prepare(for: self.segue2, sender: self.messageAlert)
             //self.performSegue(withIdentifier: "toMessageVC", sender: self.messageAlert.actions[1])
             let allStudents = self.storyboard!.instantiateViewController(identifier: "AllStudentsViewController") as! AllStudentsViewController
+            self.sortByCounselor()
             self.present(allStudents, animated:true, completion: nil)
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
-        
-//        for student in studentArr{
-//            let stuCounselor = student["Counselor"]
-//            for x in 0...6{
-//                if(counselorArr[x] == stuCounselor){
-//                    counselorStudents[x].append(student)
-//                    break
-//                }
-//            }
-//
-//        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRow = indexPath.row
         present(messageAlert, animated: true, completion: nil)
     }
+    func getData(){
+        for i in idnum {
+            print("hello")
+            let reference = Database.database().reference().child(String(i))
+            reference.observeSingleEvent(of: .value) { [self] (snapshot) in
+                let counselorDict = snapshot.value as! Dictionary<String, String>
+                let counselor = counselorDict["Counselor"] as! String
+                print(counselor)
+                studentArr[i] = counselor
+            }
+        }
+        print(studentArr)
+    }
     func sortByCounselor(){
-        for student in studentArr{
-            let stuCounselor = student["Counselor"]
+        getData()
+        print(studentArr)
+        for (id,counselor) in studentArr{
+            let stuCounselor = counselor as! String
             for x in 0...6{
                 if(counselorArr[x] == stuCounselor){
-                    counselorStudents[x].append(student)
-                    studentsToSend[x].append(student["IDNumber"]!)
+                    counselorStudents[x].append(id as! String)
+                    studentsToSend[x].append(id as! String)
                     break
                 }
             }
