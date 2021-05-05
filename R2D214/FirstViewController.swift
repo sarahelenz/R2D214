@@ -25,6 +25,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var uniqueValues: [String] = []
     var studentsByYear: [[String]] = [[],[],[],[]]
     var selectedRow:Int = 0
+    
 
     func loadDatabaseIDNums() {
         if check == 1 {
@@ -121,7 +122,17 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
 //            self.navigationController?.pushViewController(thirdvc, animated: true)
             let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
             //add specifications for different rows
-            thirdvc.idnum = self.idnum
+            if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
+                self.sortByYears()
+                print(self.studentsByYear)
+            }
+            if self.selectedRow == 4 {
+                thirdvc.idnum = self.idnum
+            }
+            else{
+                thirdvc.idnum = self.studentsByYear[self.selectedRow]
+            }
+            print(thirdvc.idnum)
             self.present(thirdvc, animated:true, completion: nil)
         }
         messageAlert.addAction(yesAction)
@@ -173,8 +184,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("yes you did select the row")
-        let indexPath = tableView1.indexPathForSelectedRow
-        selectedRow = indexPath!.row
+        let indexPath = tableView1.indexPathForSelectedRow!
+        selectedRow = indexPath.row
         print(selectedRow)
         present(messageAlert, animated: true, completion: nil)
     }
@@ -195,8 +206,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         for id in idnum{
             let stuYear = id[1...2]
+            uniqueValues.sort()
+            print(uniqueValues)
             for year in 0...3{
-                if stuYear == yearNumbers[year]{
+                if stuYear == uniqueValues[year]{
                     studentsByYear[year].append(id)
                 }
             }
@@ -206,7 +219,18 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     func prepare(for segue: UIStoryboardSegue, sender: UIButton) {
         sortByYears()
         let nvc = segue.destination as! messageVC
-        nvc.idnum = self.idnum
+        if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
+            self.sortByYears()
+            
+        }
+        if self.selectedRow == 4 {
+            nvc.idnum = self.idnum
+        }
+        else{
+            nvc.idnum = self.studentsByYear[self.selectedRow]
+        }
+        print(nvc.idnum)
+        self.present(nvc, animated:true, completion: nil)
         
         
     }
