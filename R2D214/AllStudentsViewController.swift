@@ -16,7 +16,7 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var tableview:UITableView!
     //below will be data segued from thirdviewcontroller - must be all students within one counselor
     let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"],["IDNumber":"621007","Counselor":"Deppen","First Name":"Bob","Last Name":"Anderson"]]
-    
+    var idnum:[String] = []
     var searching = false
     var studentList = [String]()
     var searchedStudent = [String]()

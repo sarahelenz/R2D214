@@ -42,8 +42,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     }
                     else {
                         self.idnum.append(id)
-//                        print("id: ",id)
-//                        print(self.idnum)
                         self.getYearNumbers()
                     }
                 }
@@ -75,18 +73,13 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             studReverse.append(sreverse)
         }
         sorted = studReverse.sorted { $0 < $1 }
-//        print(sorted)
-//        print("last", lastnames)
-//        print("first", firstnames)
         return sorted
     }
     func sortCounselor(couselors: [String]) -> [String] {
-//        print(couselors.sorted())
         return couselors.sorted()
     }
     func getYearNumbers() {
         loadDatabaseIDNums()
-//        print(idnum)
         for ids in idnum[0..<idnum.count]{
             
             yearNumbers.append(String(ids[1...2]))
@@ -97,8 +90,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         finalYears = Array(Set(uniqueValues))
         finalYears.sort()
         finalYears.append("Entire School")
-        print(finalYears)
-        print(finalYears.count)
         
         
     }
@@ -113,18 +104,28 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView1.dataSource = self
         tableView1.delegate = self
         super.viewDidLoad()
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
-            self.performSegue(withIdentifier: "segueToMessage1", sender: self)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) {  _ in
+            let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
+            if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
+                self.sortByYears()
+            }
+            if self.selectedRow == 4 {
+                message.idnum = self.idnum
+            }
+            else{
+                message.idnum = self.studentsByYear[self.selectedRow]
+            }
+            print(message.idnum)
+            self.present(message, animated: true, completion: nil)
         }
         
-        let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
+        let noAction = UIAlertAction(title: "No", style: .default) { _ in
 //            let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
 //            self.navigationController?.pushViewController(thirdvc, animated: true)
             let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
             //add specifications for different rows
             if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
                 self.sortByYears()
-                print(self.studentsByYear)
             }
             if self.selectedRow == 4 {
                 thirdvc.idnum = self.idnum
@@ -154,7 +155,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
             reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
             reference.observeSingleEvent(of: .value) { (snapshot) in
-                //     print (snapshot)
                 for data in snapshot.children.allObjects as! [DataSnapshot] {
                     let IDNumber = data.key
                     let dictionary = data.value as! NSDictionary
@@ -183,7 +183,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("yes you did select the row")
         let indexPath = tableView1.indexPathForSelectedRow!
         selectedRow = indexPath.row
         print(selectedRow)
@@ -207,7 +206,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         for id in idnum{
             let stuYear = id[1...2]
             uniqueValues.sort()
-            print(uniqueValues)
             for year in 0...3{
                 if stuYear == uniqueValues[year]{
                     studentsByYear[year].append(id)
