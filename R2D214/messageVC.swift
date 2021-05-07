@@ -14,10 +14,8 @@ import FirebaseDatabase
 class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
     var emails:[String] = []
     var check = 1
-    var level = 0 //will have to implement way to change level depending on which viewcontroller you are on
-    // ^^ level = 0 is for all, level = 1 is for one class, level = 2 is for one counselor, level = 3 is for one student
     let yearNumbers = ["21","22","23","24"] //replace with year number array
-    var idnum:[String] = ["621006","621092","623182"] //need to set equal to id numbers recieved from previous view controller
+    var idnum:[String] = [] //need to set equal to id numbers recieved from previous view controller
     @IBOutlet weak var field: UITextField!
     @IBOutlet weak var sendButtnon: UIButton!
     override func viewDidLoad() {
@@ -32,17 +30,12 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
         for i in idnum {
             let reference = Database.database().reference().child(String(i))
             reference.observeSingleEvent(of: .value) { [self] (snapshot) in
-                for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-                    let email = dataa.value as! String
-                    print(email)
-                    if email.contains("d214") {
-                        self.emails.append(email)
-                        print(self.emails)
+                    let emailDict = snapshot.value as! Dictionary<String,String>
+                    let email = emailDict["E-mail"]!
+                    self.emails.append(email)
+                    print(self.emails)
                     }
-                }
-            }
         }
-        print("emails: ",emails.count,emails)
     }
     func sendEmail() {
         loadDatabase()
@@ -60,46 +53,46 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
     //function below needs to be tested -- have not set it up to run within the app
-    func sendEmailToClass(year:String) {
-        loadDatabase()
-        let emailArr = sortEmailsByYear(year: year)
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            print("emailfunc",emailArr)
-            mail.setToRecipients(emailArr)
-            mail.setMessageBody("<p>\(field.text!)</p>", isHTML: true)
-            present(mail, animated: true)
-        } else {
-            let alert = UIAlertController(title: "Message Failed", message: "Your device cannot send mail", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-        }
-    }
-    //function below needs to be tested -- have not set it up to run within the app
-    func sortEmailsByYear(year:String) -> Array<String> {
-        var yearIds:[String] = []
-        var emailsyear:[String] = []
-        for id in idnum {
-            if String(id)[1...2] == year {
-                yearIds.append(String(id))
-            }
-        }
-        for id1 in yearIds{
-            let reference = Database.database().reference().child(String(id1))
-            reference.observeSingleEvent(of: .value) { (snapshot) in
-                for dataa in snapshot.children.allObjects as! [DataSnapshot] {
-                    let email = dataa.value as! String
-                    print(email)
-                    if email.contains("d214") {
-                        emailsyear.append(email)
-                        print(emailsyear)
-                    }
-                }
-            }
-        }
-        return emailsyear
-    }
+//    func sendEmailToClass(year:String) {
+//        loadDatabase()
+//        let emailArr = sortEmailsByYear(year: year)
+//        if MFMailComposeViewController.canSendMail() {
+//            let mail = MFMailComposeViewController()
+//            mail.mailComposeDelegate = self
+//            print("emailfunc",emailArr)
+//            mail.setToRecipients(emailArr)
+//            mail.setMessageBody("<p>\(field.text!)</p>", isHTML: true)
+//            present(mail, animated: true)
+//        } else {
+//            let alert = UIAlertController(title: "Message Failed", message: "Your device cannot send mail", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+//            present(alert, animated: true, completion: nil)
+//        }
+//    }
+//    //function below needs to be tested -- have not set it up to run within the app
+//    func sortEmailsByYear(year:String) -> Array<String> {
+//        var yearIds:[String] = []
+//        var emailsyear:[String] = []
+//        for id in idnum {
+//            if String(id)[1...2] == year {
+//                yearIds.append(String(id))
+//            }
+//        }
+//        for id1 in yearIds{
+//            let reference = Database.database().reference().child(String(id1))
+//            reference.observeSingleEvent(of: .value) { (snapshot) in
+//                for dataa in snapshot.children.allObjects as! [DataSnapshot] {
+//                    let email = dataa.value as! String
+//                    print(email)
+//                    if email.contains("d214") {
+//                        emailsyear.append(email)
+//                        print(emailsyear)
+//                    }
+//                }
+//            }
+//        }
+//        return emailsyear
+//    }
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
         switch result{
@@ -122,12 +115,6 @@ class messageVC: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
     @IBAction func sendAct(_ sender: Any) {
-        if level == 0 {
             sendEmail()
-        }
-        else if level == 1 {
-            sendEmailToClass(year: yearNumbers[0]) //will have to change this to variable based on yearnumbers array later on
-        }
-        
     }
 }

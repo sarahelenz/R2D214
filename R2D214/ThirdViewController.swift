@@ -37,7 +37,9 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         let yesAction = UIAlertAction(title: "Yes", style: .default) {  _ in
            
             let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
-            self.sortByCounselor()
+            if(self.studentsToSend[self.selectedRow].isEmpty){
+                self.sortByCounselor()
+            }
             message.idnum = self.studentsToSend[self.selectedRow]
             self.present(message, animated:true, completion: nil)
             
@@ -45,7 +47,9 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         let noAction = UIAlertAction(title: "No", style: .default) {  _ in
             
             let allStudents = self.storyboard!.instantiateViewController(identifier: "AllStudentsViewController") as! AllStudentsViewController
-            self.sortByCounselor()
+            if(self.studentsToSend[self.selectedRow].isEmpty){
+                self.sortByCounselor()
+            }
             allStudents.idnum = self.studentsToSend[self.selectedRow]
             print(allStudents.idnum)
             self.present(allStudents, animated:true, completion: nil)
@@ -87,20 +91,7 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             
         }
     }
-//    func prepare(for segue: UIStoryboardSegue, sender: UIAlertAction) {
-//        sortByCounselor()
-//        if segue.destination == ThirdViewController(){
-//            let nvc = segue.destination as! ThirdViewController
-//            let selectedStudents:[String] = self.studentsToSend[selectedRow]
-//            nvc.idnum = selectedStudents
-//        }
-//        else{
-//            let nvc = segue.destination as! messageVC
-//            let selectedStudents:[String] = self.studentsToSend[selectedRow]
-//            nvc.idnum = selectedStudents
-//        }
-//
-//    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
         cell.textLabel?.text = counselorArr[indexPath.row]
