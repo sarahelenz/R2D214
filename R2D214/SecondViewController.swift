@@ -79,11 +79,11 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
             tableView2.dataSource = self
             tableView2.delegate = self
             super.viewDidLoad()
-            let yesAction = UIAlertAction(title: "Yes", style: .default) { [self, unowned messageAlert] _ in
+            let yesAction = UIAlertAction(title: "Yes", style: .default) {  _ in
                 self.performSegue(withIdentifier: "segueToMessage1", sender: self)
             }
             
-            let noAction = UIAlertAction(title: "No", style: .default) { [unowned messageAlert] _ in
+            let noAction = UIAlertAction(title: "No", style: .default) {  _ in
                 let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
                 self.navigationController?.pushViewController(thirdvc, animated: true)
             }
@@ -116,10 +116,10 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         cell.detailTextLabel?.text = "\(lastNameDictionary[indexPath.row])"
         return cell
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nvc = segue.destination as! FirstViewController
-        let classYears = nvc.finalYears
-        let counselors = nvc.arrayOf.counselor
-        //yearNumbers.append(contentsOf: classYears)
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let nvc = segue.destination as! FirstViewController
+//        let classYears = nvc.finalYears
+//        let counselors = nvc.arrayOf.counselor
+//        //yearNumbers.append(contentsOf: classYears)
+//    }
 }

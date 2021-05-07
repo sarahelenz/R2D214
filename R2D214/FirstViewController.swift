@@ -120,8 +120,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         let noAction = UIAlertAction(title: "No", style: .default) { _ in
-//            let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
-//            self.navigationController?.pushViewController(thirdvc, animated: true)
             let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
             //add specifications for different rows
             if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
@@ -138,9 +136,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
-        // getYearNumbers()
-//        sortNames(students: ["Joe A", "BoB C", "Jill B", "Test Z", "Test D"])
-//        sortCounselor(couselors: ["name6","name1","name6","gal","smith","gal","smith"])
+        
     }
     
     func getData()
@@ -164,7 +160,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     let lastNameDictionary = dictionary["Last Name"] as! String
                     
                     self.idnum.append(contentsOf: self.arrayOf.IDNumber)
-//                   self.fullNames.append("\(self.arrayOf.firstName)" + " " + "\(self.arrayOf.lastName)")
+
                     DispatchQueue.main.async {
                         self.tableView1.reloadData()
                     }
