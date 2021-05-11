@@ -15,18 +15,27 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableview:UITableView!
     //below will be data segued from thirdviewcontroller - must be all students within one counselor
-    let studentArr = [["IDNumber":"621006","Counselor":"Deppen","First Name":"Sam","Last Name":"Corley"],["IDNumber":"621007","Counselor":"Deppen","First Name":"Bob","Last Name":"Anderson"]]
+    var studentArr:Dictionary<String,String> = [:]
     var idnum:[String] = []
     var searching = false
     var studentList = [String]()
     var searchedStudent = [String]()
+    var num = 0
+    var yes = false
     
     override func viewDidLoad() {
         tableview.dataSource = self
         tableview.delegate = self
+        getData()
+//        while !yes {
+//            if !studentArr.isEmpty{
+//                super.viewDidLoad()
+//            }
+//        }
         super.viewDidLoad()
-        self.listofStudents()
+        //self.listofStudents()
         self.searchBar.showsCancelButton = true
+        //tableview.reloadData()
     }
     func listofStudents() {
         for code in NSLocale.isoCountryCodes as [String] {
@@ -36,33 +45,24 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
             tableview.reloadData()
         }
     }
-    func prepare(for segue: UIStoryboardSegue, sender: UITableViewCell) {
-        let nvc = segue.destination as! messageVC
-        let indexPath = tableview.indexPathForSelectedRow
-        let selectedRow = indexPath?.row
-        var oneStudentArr:[String] = []
-        oneStudentArr.append(studentArr[selectedRow!]["IDNumber"]!)
-        nvc.idnum = oneStudentArr
-        
-        
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching {
             return searchedStudent.count
         } else {
-            return studentArr.count
+            return idnum.count
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
-        let student = studentArr[indexPath.row]
-        let name = student["First Name"]! + " " + student["Last Name"]!
-        studentList.append(name)
-        cell.textLabel?.text = name
-        if searching {
-            cell.textLabel?.text = searchedStudent[indexPath.row]
-        } else {
-            cell.textLabel?.text = name
+        if studentArr.count == idnum.count{
+            for (student,id) in studentArr{
+                print(student)
+                studentList.append(student)
+            }
+            cell.textLabel?.text = studentList[indexPath.row]
+        }
+        else{
+            tableview.reloadData()
         }
         return cell
     }
@@ -76,6 +76,13 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
         }
         self.searchBar.searchTextField.endEditing(true)
         let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
+        print("is this function even calling")
+        let indexPath = tableview.indexPathForSelectedRow!
+        let cell = tableview.cellForRow(at: indexPath)!
+        let id = studentArr[(cell.textLabel!.text)!]!
+        let oneStudentArr = [id]
+        message.idnum = oneStudentArr
+        print(message.idnum)
         self.present(message, animated:true, completion: nil)
     }
 
@@ -85,7 +92,23 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     searching = true
     tableview.reloadData()
 }
-func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func getData(){
+        for i in idnum {
+            let reference = Database.database().reference().child(String(i))
+            reference.observeSingleEvent(of: .value) { [self] (snapshot) in
+                let valDict = snapshot.value as! Dictionary<String, String>
+                let firstName = valDict["First Name"]!
+                let lastName = valDict["Last Name"]!
+                let name = firstName + " " + lastName
+                studentArr[name] = i
+                print(studentArr)
+            }
+        }
+        //yes = true
+        //tableview.reloadData()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     searching = false
     searchBar.text = ""
     tableview.reloadData()
