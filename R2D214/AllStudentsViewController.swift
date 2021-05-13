@@ -28,6 +28,8 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
         super.viewDidLoad()
         self.searchBar.showsCancelButton = true
     }
+    
+    //idk what this function does
     func listofStudents() {
         for code in NSLocale.isoCountryCodes as [String] {
             let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
@@ -36,6 +38,8 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
             tableview.reloadData()
         }
     }
+    
+    //function sets number of rows in TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching {
             return searchedStudent.count
@@ -43,11 +47,12 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
             return idnum.count
         }
     }
+    
+    //function puts students' names into cells of TableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
         if studentArr.count == idnum.count{
             for (student,_) in studentArr{
-                print(student)
                 studentList.append(student)
             }
             cell.textLabel?.text = studentList[indexPath.row]
@@ -57,23 +62,21 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
         }
         return cell
     }
+    
+    //function handles selection of row and presents message view controller to user to send a message to an individual student
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if searching {
             let selectedStudent = searchedStudent[indexPath.row]
-            print(selectedStudent)
         } else {
             let selectedStudent = studentList[indexPath.row]
-            print(selectedStudent)
         }
         self.searchBar.searchTextField.endEditing(true)
         let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
-        print("is this function even calling")
         let indexPath = tableview.indexPathForSelectedRow!
         let cell = tableview.cellForRow(at: indexPath)!
         let id = studentArr[(cell.textLabel!.text)!]!
         let oneStudentArr = [id]
         message.idnum = oneStudentArr
-        print(message.idnum)
         self.present(message, animated:true, completion: nil)
     }
 
@@ -82,7 +85,9 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     
     searching = true
     tableview.reloadData()
-}
+    }
+    
+    //function pulls down student names from Firebase and creates dictionary with student names as keys and ID numbers as values
     func getData(){
         for i in idnum {
             let reference = Database.database().reference().child(String(i))
@@ -92,7 +97,6 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
                 let lastName = valDict["Last Name"]!
                 let name = firstName + " " + lastName
                 studentArr[name] = i
-                print(studentArr)
             }
         }
     }
@@ -102,7 +106,7 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     searchBar.text = ""
     tableview.reloadData()
     
-}
+    }
 
 
 }

@@ -48,40 +48,39 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                 self.sortByCounselor()
             }
             allStudents.idnum = self.studentsToSend[self.selectedRow]
-            print(allStudents.idnum)
             self.present(allStudents, animated:true, completion: nil)
         }
         messageAlert.addAction(yesAction)
         messageAlert.addAction(noAction)
     }
+    
+    //function handles row selection and presents the messageAlert so the user can decide whether to send the message to that group or not
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRow = indexPath.row
         present(messageAlert, animated: true, completion: nil)
     }
+    
+    //function pulls down counselors for each ID number from Firebase and creates a dictionary with ID numbers as the keys and counselor names as the values
     func getData(){
         for i in idnum {
             let reference = Database.database().reference().child(String(i))
             reference.observeSingleEvent(of: .value) { [self] (snapshot) in
                 let counselorDict = snapshot.value as! Dictionary<String, String>
                 let counselor = counselorDict["Counselor"]!
-                print(counselor)
                 studentArr[i] = counselor
-                print(studentArr)
             }
         }
         
     }
+    
+    //function sorts ID numbers by what counselor they have and creates student arrays for each counselor
     func sortByCounselor(){
-        print("dog")
         for (id,counselor) in studentArr{
-            print(id + counselor)
             let stuCounselor = counselor
-            print(stuCounselor)
             for x in 0...6{
                 if(counselorArr[x] == stuCounselor){
                     counselorStudents[x].append(id)
                     studentsToSend[x].append(id)
-                    print(studentsToSend)
                     break
                 }
             }
@@ -89,11 +88,14 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         }
     }
 
+    //function puts values of counselor names into TableView rows
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
         cell.textLabel?.text = counselorArr[indexPath.row]
         return cell
     }
+    
+    //function defines number of rows in TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 7
     }

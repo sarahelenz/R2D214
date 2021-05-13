@@ -26,7 +26,59 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     var studentsByYear: [[String]] = [[],[],[],[]]
     var selectedRow:Int = 0
     
-
+    override func viewDidLoad() {
+        tableView1.allowsSelection = true
+        tableView1.allowsSelectionDuringEditing = true
+        loadDatabaseIDNums()
+        
+        tableView1.dataSource = self
+        tableView1.delegate = self
+        super.viewDidLoad()
+        let yesAction = UIAlertAction(title: "Yes", style: .default) {  _ in
+            let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
+            if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
+                self.sortByYears()
+            }
+            if self.selectedRow == 4 {
+                message.idnum = self.idnum
+            }
+            else{
+                message.idnum = self.studentsByYear[self.selectedRow]
+            }
+            self.present(message, animated: true, completion: nil)
+        }
+        
+        let noAction = UIAlertAction(title: "No", style: .default) { _ in
+            let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
+            if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
+                self.sortByYears()
+            }
+            if self.selectedRow == 4 {
+                thirdvc.idnum = self.idnum
+            }
+            else{
+                thirdvc.idnum = self.studentsByYear[self.selectedRow]
+            }
+            self.present(thirdvc, animated:true, completion: nil)
+        }
+        messageAlert.addAction(yesAction)
+        messageAlert.addAction(noAction)
+        
+    }
+    
+    //function sets the number of rows in the TableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return finalYears.count
+    }
+    
+    //function handles selection of a row and presents messageAlert to select whether user wants to send message to this group or not 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let indexPath = tableView1.indexPathForSelectedRow!
+        selectedRow = indexPath.row
+        present(messageAlert, animated: true, completion: nil)
+    }
+   
+    //function pulls down data from Firebase and puts all ID numbers into array idnum
     func loadDatabaseIDNums() {
         if check == 1 {
             idnum = []
@@ -52,32 +104,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
     }
-    func sortNames(students:[String]) -> [String] {
-        var sorted:[String] = []
-        var firstnames:[String] = []
-        var lastnames:[String] = []
-        var studReverse:[String] = []
-        for student in students {
-            let ind = student.firstIndex(of: " ")
-            let range = student.startIndex ... ind!
-            let end = student.endIndex
-            let endindex = student.index(end, offsetBy: -1)
-            let range2 = ind! ... endindex
-            var student2 = student
-            student2.removeSubrange(range)
-            lastnames.append(student2)
-            var student3 = student
-            student3.removeSubrange(range2)
-            firstnames.append(student3)
-            let sreverse = student2 + " " + student3
-            studReverse.append(sreverse)
-        }
-        sorted = studReverse.sorted { $0 < $1 }
-        return sorted
-    }
-    func sortCounselor(couselors: [String]) -> [String] {
-        return couselors.sorted()
-    }
+    
+    //function takes all ID numbers and sorts them by class year, then creates array uniqueValues with all of the unique year numbers
     func getYearNumbers() {
         loadDatabaseIDNums()
         for ids in idnum[0..<idnum.count]{
@@ -94,72 +122,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     
-    
-    
-    override func viewDidLoad() {
-        tableView1.allowsSelection = true
-        tableView1.allowsSelectionDuringEditing = true
-        loadDatabaseIDNums()
-        
-        tableView1.dataSource = self
-        tableView1.delegate = self
-        super.viewDidLoad()
-        let yesAction = UIAlertAction(title: "Yes", style: .default) {  _ in
-            let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
-            if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
-                self.sortByYears()
-            }
-            if self.selectedRow == 4 {
-                message.idnum = self.idnum
-            }
-            else{
-                message.idnum = self.studentsByYear[self.selectedRow]
-            }
-            print(message.idnum)
-            self.present(message, animated: true, completion: nil)
-        }
-        
-        let noAction = UIAlertAction(title: "No", style: .default) { _ in
-            let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
-            //add specifications for different rows
-            if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
-                self.sortByYears()
-            }
-            if self.selectedRow == 4 {
-                thirdvc.idnum = self.idnum
-            }
-            else{
-                thirdvc.idnum = self.studentsByYear[self.selectedRow]
-            }
-            print(thirdvc.idnum)
-            self.present(thirdvc, animated:true, completion: nil)
-        }
-        messageAlert.addAction(yesAction)
-        messageAlert.addAction(noAction)
-        
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return finalYears.count
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let indexPath = tableView1.indexPathForSelectedRow!
-        selectedRow = indexPath.row
-        print(selectedRow)
-        present(messageAlert, animated: true, completion: nil)
-    }
-    func prepare(for segue: UIStoryboardSegue, sender: UIAlertController) {
-        sortByYears()
-        let nvc = segue.destination as! ThirdViewController
-        if selectedRow == 4{
-            nvc.idnum = self.idnum
-        }
-        else{
-            nvc.idnum = self.studentsByYear[selectedRow]
-        }
-    }
-    
+    //function sorts all student ID numbers by what class year they belong to
     func sortByYears(){
         DispatchQueue.main.async {
             self.tableView1.reloadData()
@@ -176,6 +139,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
+    //function puts class year values into the TableView cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         loadDatabaseIDNums()
         DispatchQueue.main.async {
