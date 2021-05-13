@@ -14,28 +14,19 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableview:UITableView!
-    //below will be data segued from thirdviewcontroller - must be all students within one counselor
     var studentArr:Dictionary<String,String> = [:]
     var idnum:[String] = []
     var searching = false
     var studentList = [String]()
     var searchedStudent = [String]()
     var num = 0
-    var yes = false
     
     override func viewDidLoad() {
         tableview.dataSource = self
         tableview.delegate = self
         getData()
-//        while !yes {
-//            if !studentArr.isEmpty{
-//                super.viewDidLoad()
-//            }
-//        }
         super.viewDidLoad()
-        //self.listofStudents()
         self.searchBar.showsCancelButton = true
-        //tableview.reloadData()
     }
     func listofStudents() {
         for code in NSLocale.isoCountryCodes as [String] {
@@ -55,7 +46,7 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "cell",for:indexPath)
         if studentArr.count == idnum.count{
-            for (student,id) in studentArr{
+            for (student,_) in studentArr{
                 print(student)
                 studentList.append(student)
             }
@@ -104,8 +95,6 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
                 print(studentArr)
             }
         }
-        //yes = true
-        //tableview.reloadData()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

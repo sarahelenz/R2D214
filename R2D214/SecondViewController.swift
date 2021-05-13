@@ -54,8 +54,8 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                     print(self.IDNumber)
                     
                     let dictionary = data.value as! NSDictionary
-                    var firstName = dictionary["First Name"] as! String
-                    var lastName = dictionary["Last Name"] as! String
+                    let firstName = dictionary["First Name"] as! String
+                    let lastName = dictionary["Last Name"] as! String
                     self.firstNameDictionary.append(firstName)
                     self.lastNameDictionary.append(lastName)
                 }

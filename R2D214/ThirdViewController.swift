@@ -21,11 +21,8 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     var idnum:[String] = []
     var studentArr:[String:String] = [:]
     var studentsToSend:[[String]] = [[],[],[],[],[],[],[]]
-    //var segue1 = UIStoryboardSegue.init(identifier: "toStudent", source: ThirdViewController(), destination: AllStudentsViewController())
-    //var segue2 = UIStoryboardSegue.init(identifier: "toMessageVC", source: ThirdViewController(), destination: messageVC())
     var selectedRow = 0
     var str1 = ""
-    //data segued from Sarah's code, will need to be all students in a grade
     
     override func viewDidLoad() {
         super.viewDidLoad()

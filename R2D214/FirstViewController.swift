@@ -139,44 +139,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     
-    func getData()
-    {
-        arrayOf.IDNumber = []
-        arrayOf.counselor = []
-        arrayOf.Email = []
-        arrayOf.firstName = []
-        arrayOf.lastName = []
-        let reference = Database.database().reference()
-        reference.observeSingleEvent(of: .value) { (snapshot) in
-            let students : [String:Any] = ["First Name" : "", "Last Name" : "", "Counselor" : "", "Email" : ""]
-            reference.child("r2d214-a33ff-default-rtdb").childByAutoId().setValue(students)
-            reference.observeSingleEvent(of: .value) { (snapshot) in
-                for data in snapshot.children.allObjects as! [DataSnapshot] {
-                    let IDNumber = data.key
-                    let dictionary = data.value as! NSDictionary
-                    let CounselorDictionary = dictionary["counselor"] as! String
-                    let EmailDictionary = dictionary["E-mail"] as! String
-                    let firstNameDictionary = dictionary["First Name"] as! String
-                    let lastNameDictionary = dictionary["Last Name"] as! String
-                    
-                    self.idnum.append(contentsOf: self.arrayOf.IDNumber)
-
-                    DispatchQueue.main.async {
-                        self.tableView1.reloadData()
-                    }
-                }
-                self.tableView1.reloadData()
-            }
-        }
-    }
-    
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return finalYears.count
     }
-    
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let indexPath = tableView1.indexPathForSelectedRow!
@@ -210,24 +175,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             
         }
     }
-    func prepare(for segue: UIStoryboardSegue, sender: UIButton) {
-        sortByYears()
-        let nvc = segue.destination as! messageVC
-        if self.selectedRow != 4 && self.studentsByYear[self.selectedRow].isEmpty {
-            self.sortByYears()
-            
-        }
-        if self.selectedRow == 4 {
-            nvc.idnum = self.idnum
-        }
-        else{
-            nvc.idnum = self.studentsByYear[self.selectedRow]
-        }
-        print(nvc.idnum)
-        self.present(nvc, animated:true, completion: nil)
-        
-        
-    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         loadDatabaseIDNums()
         DispatchQueue.main.async {
