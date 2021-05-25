@@ -21,6 +21,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     var IDNumber: [String] = []
     var firstNameDictionary: [String] = []
     var lastNameDictionary: [String] = []
+     var selectedRow:Int = 0
     
     public func getData(){
         
@@ -75,29 +76,29 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
             tableView2.allowsSelection = true
             tableView2.allowsSelectionDuringEditing = true
             getData()
-            
             tableView2.dataSource = self
             tableView2.delegate = self
             super.viewDidLoad()
-            let yesAction = UIAlertAction(title: "Yes", style: .default) {  _ in
-                self.performSegue(withIdentifier: "segueToMessage1", sender: self)
-            }
-            
-            let noAction = UIAlertAction(title: "No", style: .default) {  _ in
-                let thirdvc = ThirdViewController(nibName: "ThirdViewController", bundle: nil)
-                self.navigationController?.pushViewController(thirdvc, animated: true)
-            }
-            messageAlert.addAction(yesAction)
-            messageAlert.addAction(noAction)
+        
+                   let yesAction = UIAlertAction(title: "Yes", style: .default) {  _ in
+                       let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
+                           message.idnum = self.IDNumber
+                       }
+        let noAction = UIAlertAction(title: "No", style: .default) { _ in
+        let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
+        if self.selectedRow != 4 && self.IDNumber[self.selectedRow].isEmpty {
         }
-//    override func viewDidLoad(){
-//        super.viewDidLoad()
-//        tableView2.dataSource = self
-//        getData()
-//
-//    }
+        }
+            
+        messageAlert.addAction(yesAction)
+               messageAlert.addAction(noAction)
+    }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           let indexPath = tableView2.indexPathForSelectedRow!
+           selectedRow = indexPath.row
+           present(messageAlert, animated: true, completion: nil)
+       }
     
     override func viewDidAppear(_ animated: Bool) {
         tableView2.reloadData()
@@ -123,3 +124,4 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
 //        //yearNumbers.append(contentsOf: classYears)
 //    }
 }
+

@@ -67,7 +67,7 @@ class ThirdViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             reference.observeSingleEvent(of: .value) { [self] (snapshot) in
                 let counselorDict = snapshot.value as! Dictionary<String, String>
                 let counselor = counselorDict["Counselor"]!
-                studentArr[i] = counselor
+                self.studentArr[i] = counselor
             }
         }
         
