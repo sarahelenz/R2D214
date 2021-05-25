@@ -88,6 +88,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
         let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
         if self.selectedRow != 4 && self.IDNumber[self.selectedRow].isEmpty {
         }
+             self.present(thirdvc, animated:true, completion: nil)
         }
             
         messageAlert.addAction(yesAction)
