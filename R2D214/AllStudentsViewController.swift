@@ -96,7 +96,7 @@ class AllStudentsViewController:UIViewController,UITableViewDelegate,UITableView
                 let firstName = valDict["First Name"]!
                 let lastName = valDict["Last Name"]!
                 let name = firstName + " " + lastName
-                studentArr[name] = i
+                self.studentArr[name] = i
             }
         }
     }
