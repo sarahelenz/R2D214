@@ -84,11 +84,12 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
                        let message = self.storyboard!.instantiateViewController(identifier: "messageVC") as! messageVC
                            message.idnum = self.IDNumber
                        }
+        // needs editing so that noAction stops third view controller from appearing
         let noAction = UIAlertAction(title: "No", style: .default) { _ in
         let thirdvc = self.storyboard!.instantiateViewController(identifier: "thirdvc") as! ThirdViewController
         if self.selectedRow != 4 && self.IDNumber[self.selectedRow].isEmpty {
         }
-             self.present(thirdvc, animated:true, completion: nil)
+            self.present(thirdvc, animated:true, completion: nil)
         }
             
         messageAlert.addAction(yesAction)
@@ -97,6 +98,7 @@ class SecondViewController:UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            let indexPath = tableView2.indexPathForSelectedRow!
+       
            selectedRow = indexPath.row
            present(messageAlert, animated: true, completion: nil)
        }
